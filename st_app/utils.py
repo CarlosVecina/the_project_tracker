@@ -49,8 +49,25 @@ def get_google_url_img_proyecto(nombre_proyecto: str) -> str:
     return None
 
 
+#@st.cache_data
+#def load_css(file_name="style.css"):
+#    with open(file_name) as f:
+#        css = f"<style>{f.read()}</style>"
+#    return css
+
 @st.cache_data
-def load_css(file_name="style.css"):
-    with open(file_name) as f:
-        css = f"<style>{f.read()}</style>"
-    return css
+def load_css():
+    return """
+    .st-dn {
+        border-color: rgba(49, 51, 63, 0.2);
+    }
+    .streamlit-expanderHeader p{
+        font-weight: bold;
+    }
+    .streamlit-expanderHeader {
+        background: #a8eba495;
+    }
+    .streamlit-expanderContent {
+        background: #c1e9be2e;
+}
+    """
