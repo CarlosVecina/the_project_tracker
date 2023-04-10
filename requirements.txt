@@ -1,3 +1,4 @@
+./the_project_tracker-0.1.0-py3-none-any.whl
 altair==4.2.2 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:39399a267c49b30d102c10411e67ab26374156a84b1aeb9fcd15140429ba49c5 \
     --hash=sha256:8b45ebeaf8557f2d760c5c77b79f02ae12aee7c46c27c06014febab6f849bc87
@@ -1351,4 +1352,3 @@ wsproto==1.2.0 ; python_version >= "3.10" and python_version < "4.0" \
 zipp==3.15.0 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:112929ad649da941c23de50f356a2b5570c954b65150642bccdd66bf194d224b \
     --hash=sha256:48904fc76a60e542af151aded95726c1a5c34ed43ab4134b597665c86d7ad556
-file:/app/the_project_tracker/the_project_tracker-0.1.0-py3-none-any.whl
