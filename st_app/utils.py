@@ -1,7 +1,8 @@
+import os
 from enum import Enum
-from typing import Self
 
 import requests
+import streamlit as st
 
 
 class Categorias(Enum):
@@ -11,7 +12,7 @@ class Categorias(Enum):
     BASEDATOS = "Bases de Datos", "📚"
     WEB = "Web frameworks", "🕸"
 
-    def __new__(cls, value: str, icon: str) -> Self:
+    def __new__(cls, value: str, icon: str):
         entry = object.__new__(cls)
         entry._value_ = value
         entry.icon = icon  # type: ignore[attr-defined]
@@ -46,3 +47,10 @@ def get_google_url_img_proyecto(nombre_proyecto: str) -> str:
     )
     # TODO: https://github.com/ohyicong/Google-Image-Scraper
     return None
+
+
+@st.cache_data
+def load_css(file_name=f"{os.getcwd()}/st_app/style.css"):
+    with open(file_name) as f:
+        css = f"<style>{f.read()}</style>"
+    return css
