@@ -7,7 +7,7 @@ readme = "README.md"
 packages = [{ include = "the_project_tracker" }]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 selenium = "^4.8.2"
 pydantic = "^1.10.6"
 SQLAlchemy = "1.4.41"
@@ -18,17 +18,19 @@ requests = "^2.28.2"
 click = "^8.0"
 python-dotenv = "^1.0.0"
 sqlmodel = "^0.0.8"
-psycopg2 = "^2.9.6"
-streamlit = { version = "~1.21.0", optional = true }
-streamlit_pills = { version = "==0.3.0", optional = true }
-stqdm = { version = "*", optional = true }
-markdownlit = { version = "*", optional = true }
+streamlit = "~1.21.0"
+streamlit_pills = "==0.3.0"
+markdownlit = "*"
+#streamlit = { version = "~1.21.0", optional = true }
+#streamlit_pills = { version = "==0.3.0", optional = true }
+#markdownlit = { version = "*", optional = true }
+psycopg2-binary = "^2.9.6"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.2.2"
 
-[tool.poetry.extras]
-st_app = ["streamlit", "streamlit_pills", "stqdm", "markdownlit"]
+#[tool.poetry.extras]
+#st_app = ["streamlit", "streamlit_pills", "markdownlit"]
 
 [build-system]
 requires = ["poetry-core"]
@@ -38,7 +40,7 @@ build-backend = "poetry.core.masonry.api"
 the_project_tracker = "the_project_tracker.cli:pipeline_cli"
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
 exclude = ["st_app"]

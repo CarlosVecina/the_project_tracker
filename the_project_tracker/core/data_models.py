@@ -12,6 +12,7 @@ class PR(SQLModel):
     pr_body: str | None = Field(nullable=True)
     commits_url: str
     explanation: str
+    explanation_es: str
     inserted_at: str
     updated_at: str
 
@@ -28,6 +29,7 @@ class Release(SQLModel):
     assets: str
     body: str
     explanation: str
+    explanation_es: str
     inserted_at: str
     updated_at: str
 

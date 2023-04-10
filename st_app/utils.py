@@ -1,7 +1,7 @@
 from enum import Enum
-from typing import Self
 
 import requests
+import streamlit as st
 
 
 class Categorias(Enum):
@@ -11,7 +11,7 @@ class Categorias(Enum):
     BASEDATOS = "Bases de Datos", "📚"
     WEB = "Web frameworks", "🕸"
 
-    def __new__(cls, value: str, icon: str) -> Self:
+    def __new__(cls, value: str, icon: str):
         entry = object.__new__(cls)
         entry._value_ = value
         entry.icon = icon  # type: ignore[attr-defined]
@@ -19,21 +19,24 @@ class Categorias(Enum):
 
 
 def format_output_text(text: str, n: int = 11, method: str = "word") -> str:
-    if method == "word":
-        words = text.split()
-        out = ""
-        word_count = 0
-        for word in words:
-            out += word + " "
-            word_count += 1
-            if word_count == n:
-                out += "\n"
-                word_count = 0
-        return out
-    elif method == "character":
-        import re
+    if text is not None:
+        if method == "word":
+            words = text.split()
+            out = ""
+            word_count = 0
+            for word in words:
+                out += word + " "
+                word_count += 1
+                if word_count == n:
+                    out += "\n"
+                    word_count = 0
+            return out
+        elif method == "character":
+            import re
 
-        return "\n ".join(re.findall(".{n}", text))
+            return "\n ".join(re.findall(".{n}", text))
+    else:
+        return None
 
 
 def get_google_url_img_proyecto(nombre_proyecto: str) -> str:
@@ -46,3 +49,27 @@ def get_google_url_img_proyecto(nombre_proyecto: str) -> str:
     )
     # TODO: https://github.com/ohyicong/Google-Image-Scraper
     return None
+
+# Not available ion Streamlit Cloud
+#@st.cache_data
+#def load_css(file_name="style.css"):
+#    with open(file_name) as f:
+#        css = f"<style>{f.read()}</style>"
+#    return css
+
+@st.cache_data
+def load_css():
+    return """<style>
+    .st-dn {
+        border-color: rgba(49, 51, 63, 0.2);
+    }
+    .streamlit-expanderHeader p{
+        font-weight: bold;
+    }
+    .streamlit-expanderHeader {
+        background: #a8eba495;
+    }
+    .streamlit-expanderContent {
+        background: #c1e9be2e;
+    }</style>
+    """
