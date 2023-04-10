@@ -1,4 +1,3 @@
-import os
 from enum import Enum
 
 import requests
@@ -48,7 +47,7 @@ def get_google_url_img_proyecto(nombre_proyecto: str) -> str:
     # TODO: https://github.com/ohyicong/Google-Image-Scraper
     return None
 
-
+# Not available ion Streamlit Cloud
 #@st.cache_data
 #def load_css(file_name="style.css"):
 #    with open(file_name) as f:
@@ -69,5 +68,5 @@ def load_css():
     }
     .streamlit-expanderContent {
         background: #c1e9be2e;
-}</style>
+    }</style>
     """
