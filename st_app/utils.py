@@ -57,7 +57,7 @@ def get_google_url_img_proyecto(nombre_proyecto: str) -> str:
 
 @st.cache_data
 def load_css():
-    return """
+    return """<style>
     .st-dn {
         border-color: rgba(49, 51, 63, 0.2);
     }
@@ -69,5 +69,5 @@ def load_css():
     }
     .streamlit-expanderContent {
         background: #c1e9be2e;
-}
+}</style>
     """
