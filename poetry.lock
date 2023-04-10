@@ -5,7 +5,7 @@ name = "altair"
 version = "4.2.2"
 description = "Altair: A declarative statistical visualization library for Python."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "altair-4.2.2-py3-none-any.whl", hash = "sha256:8b45ebeaf8557f2d760c5c77b79f02ae12aee7c46c27c06014febab6f849bc87"},
@@ -101,7 +101,7 @@ name = "beautifulsoup4"
 version = "4.12.2"
 description = "Screen-scraping library"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6.0"
 files = [
     {file = "beautifulsoup4-4.12.2-py3-none-any.whl", hash = "sha256:bd2520ca0d9d7d12694a53d44ac482d181b4ec1888909b035a3dbf40d0f57d4a"},
@@ -120,7 +120,7 @@ name = "blinker"
 version = "1.6.1"
 description = "Fast, simple object-to-object and broadcast signaling"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "blinker-1.6.1-py3-none-any.whl", hash = "sha256:8fa2dc7c28c15c8ddfd8b3a21834790984c7e4a89b336dc3f45eeb70e0c5a407"},
@@ -135,7 +135,7 @@ name = "cachetools"
 version = "5.3.0"
 description = "Extensible memoizing collections and decorators"
 category = "main"
-optional = true
+optional = false
 python-versions = "~=3.7"
 files = [
     {file = "cachetools-5.3.0-py3-none-any.whl", hash = "sha256:429e1a1e845c008ea6c85aa35d4b98b65d6a9763eeef3e37e92728a12d1de9d4"},
@@ -380,7 +380,7 @@ name = "contourpy"
 version = "1.0.7"
 description = "Python library for calculating contours of 2D quadrilateral grids"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8"
 files = [
     {file = "contourpy-1.0.7-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:95c3acddf921944f241b6773b767f1cbce71d03307270e2d769fd584d5d1092d"},
@@ -455,7 +455,7 @@ name = "cycler"
 version = "0.11.0"
 description = "Composable style cycles"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "cycler-0.11.0-py3-none-any.whl", hash = "sha256:3a27e95f763a428a739d2add979fa7494c912a32c17c4c38c4d5f082cad165a3"},
@@ -519,7 +519,7 @@ name = "entrypoints"
 version = "0.4"
 description = "Discover and load entry points from installed packages."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
@@ -561,7 +561,7 @@ name = "faker"
 version = "18.4.0"
 description = "Faker is a Python package that generates fake data for you."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "Faker-18.4.0-py3-none-any.whl", hash = "sha256:170ead9d0d140916168b142df69c44722b8f622ced2070802d0af9c476f0cb84"},
@@ -576,7 +576,7 @@ name = "favicon"
 version = "0.7.0"
 description = "Get a website's favicon."
 category = "main"
-optional = true
+optional = false
 python-versions = "*"
 files = [
     {file = "favicon-0.7.0-py2.py3-none-any.whl", hash = "sha256:7fec0617c73dcb8521ea788e1d38cdc7226c7cb8e28c81e11625d85fa1534880"},
@@ -608,7 +608,7 @@ name = "fonttools"
 version = "4.39.3"
 description = "Tools to manipulate font files"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8"
 files = [
     {file = "fonttools-4.39.3-py3-none-any.whl", hash = "sha256:64c0c05c337f826183637570ac5ab49ee220eec66cf50248e8df527edfa95aeb"},
@@ -634,7 +634,7 @@ name = "gitdb"
 version = "4.0.10"
 description = "Git Object Database"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "gitdb-4.0.10-py3-none-any.whl", hash = "sha256:c286cf298426064079ed96a9e4a9d39e7f3e9bf15ba60701e95f5492f28415c7"},
@@ -649,7 +649,7 @@ name = "gitpython"
 version = "3.1.31"
 description = "GitPython is a Python library used to interact with Git repositories"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "GitPython-3.1.31-py3-none-any.whl", hash = "sha256:f04893614f6aa713a60cbbe1e6a97403ef633103cdd0ef5eb6efe0deb98dbe8d"},
@@ -750,7 +750,7 @@ name = "htbuilder"
 version = "0.6.1"
 description = "A purely-functional HTML builder for Python. Think JSX rather than templates."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.5"
 files = [
     {file = "htbuilder-0.6.1.tar.gz", hash = "sha256:b7cafab8f27162a35f7ce15e387239c95d12c3d81fc38f91cad499e88cc0fcd8"},
@@ -791,7 +791,7 @@ name = "importlib-metadata"
 version = "6.3.0"
 description = "Read metadata from Python packages"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "importlib_metadata-6.3.0-py3-none-any.whl", hash = "sha256:8f8bd2af397cf33bd344d35cfe7f489219b7d14fc79a3f854b75b8417e9226b0"},
@@ -916,7 +916,7 @@ name = "jinja2"
 version = "3.1.2"
 description = "A very fast and expressive template engine."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "Jinja2-3.1.2-py3-none-any.whl", hash = "sha256:6088930bfe239f0e6710546ab9c19c9ef35e29792895fed6e6e31a023a182a61"},
@@ -934,7 +934,7 @@ name = "jsonschema"
 version = "4.17.3"
 description = "An implementation of JSON Schema validation for Python"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "jsonschema-4.17.3-py3-none-any.whl", hash = "sha256:a870ad254da1a8ca84b6a2905cac29d265f805acc57af304784962a2aa6508f6"},
@@ -998,7 +998,7 @@ name = "kiwisolver"
 version = "1.4.4"
 description = "A fast implementation of the Cassowary constraint solver"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "kiwisolver-1.4.4-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:2f5e60fabb7343a836360c4f0919b8cd0d6dbf08ad2ca6b9cf90bf0c76a3c4f6"},
@@ -1076,7 +1076,7 @@ name = "lxml"
 version = "4.9.2"
 description = "Powerful and Pythonic XML processing library combining libxml2/libxslt with the ElementTree API."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, != 3.4.*"
 files = [
     {file = "lxml-4.9.2-cp27-cp27m-macosx_10_15_x86_64.whl", hash = "sha256:76cf573e5a365e790396a5cc2b909812633409306c6531a6877c59061e42c4f2"},
@@ -1169,7 +1169,7 @@ name = "markdown"
 version = "3.4.3"
 description = "Python implementation of John Gruber's Markdown."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "Markdown-3.4.3-py3-none-any.whl", hash = "sha256:065fd4df22da73a625f14890dd77eb8040edcbd68794bcd35943be14490608b2"},
@@ -1184,7 +1184,7 @@ name = "markdown-it-py"
 version = "2.2.0"
 description = "Python port of markdown-it. Markdown parsing, done right!"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "markdown-it-py-2.2.0.tar.gz", hash = "sha256:7c9a5e412688bc771c67432cbfebcdd686c93ce6484913dccf06cb5a0bea35a1"},
@@ -1209,7 +1209,7 @@ name = "markdownlit"
 version = "0.0.6"
 description = "markdownlit adds a couple of lit Markdown capabilities to your Streamlit apps"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "markdownlit-0.0.6-py3-none-any.whl", hash = "sha256:21197f1010036e9bb928b6aae74c0e6e7239996b08fa6a0fde3989c2b789e7d6"},
@@ -1230,7 +1230,7 @@ name = "markupsafe"
 version = "2.1.2"
 description = "Safely add untrusted strings to HTML/XML markup."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "MarkupSafe-2.1.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:665a36ae6f8f20a4676b53224e33d456a6f5a72657d9c83c2aa00765072f31f7"},
@@ -1290,7 +1290,7 @@ name = "matplotlib"
 version = "3.7.1"
 description = "Python plotting package"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8"
 files = [
     {file = "matplotlib-3.7.1-cp310-cp310-macosx_10_12_universal2.whl", hash = "sha256:95cbc13c1fc6844ab8812a525bbc237fa1470863ff3dace7352e910519e194b1"},
@@ -1367,7 +1367,7 @@ name = "mdurl"
 version = "0.1.2"
 description = "Markdown URL utilities"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "mdurl-0.1.2-py3-none-any.whl", hash = "sha256:84008a41e51615a49fc9966191ff91509e3c40b939176e643fd50a5c2196b8f8"},
@@ -1379,7 +1379,7 @@ name = "more-itertools"
 version = "9.1.0"
 description = "More routines for operating on iterables, beyond itertools"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "more-itertools-9.1.0.tar.gz", hash = "sha256:cabaa341ad0389ea83c17a94566a53ae4c9d07349861ecb14dc6d0345cf9ac5d"},
@@ -1574,7 +1574,7 @@ name = "pillow"
 version = "9.5.0"
 description = "Python Imaging Library (Fork)"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "Pillow-9.5.0-cp310-cp310-macosx_10_10_x86_64.whl", hash = "sha256:ace6ca218308447b9077c14ea4ef381ba0b67ee78d64046b3f19cf4e1139ad16"},
@@ -1720,7 +1720,7 @@ name = "protobuf"
 version = "3.20.3"
 description = "Protocol Buffers"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "protobuf-3.20.3-cp310-cp310-manylinux2014_aarch64.whl", hash = "sha256:f4bd856d702e5b0d96a00ec6b307b0f51c1982c2bf9c0052cf9019e9a544ba99"},
@@ -1878,7 +1878,7 @@ name = "pyarrow"
 version = "11.0.0"
 description = "Python library for Apache Arrow"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "pyarrow-11.0.0-cp310-cp310-macosx_10_14_x86_64.whl", hash = "sha256:40bb42afa1053c35c749befbe72f6429b7b5f45710e85059cdd534553ebcf4f2"},
@@ -1981,7 +1981,7 @@ name = "pydeck"
 version = "0.8.0"
 description = "Widget for deck.gl maps"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "pydeck-0.8.0-py2.py3-none-any.whl", hash = "sha256:a8fa7757c6f24bba033af39db3147cb020eef44012ba7e60d954de187f9ed4d5"},
@@ -2016,7 +2016,7 @@ name = "pymdown-extensions"
 version = "9.11"
 description = "Extension pack for Python Markdown."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "pymdown_extensions-9.11-py3-none-any.whl", hash = "sha256:a499191d8d869f30339de86fcf072a787e86c42b6f16f280f5c2cf174182b7f3"},
@@ -2032,7 +2032,7 @@ name = "pympler"
 version = "1.0.1"
 description = "A development tool to measure, monitor and analyze the memory behavior of Python objects."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "Pympler-1.0.1-py3-none-any.whl", hash = "sha256:d260dda9ae781e1eab6ea15bacb84015849833ba5555f141d2d9b7b7473b307d"},
@@ -2044,7 +2044,7 @@ name = "pyparsing"
 version = "3.0.9"
 description = "pyparsing module - Classes and methods to define and execute parsing grammars"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6.8"
 files = [
     {file = "pyparsing-3.0.9-py3-none-any.whl", hash = "sha256:5026bae9a10eeaefb61dab2f09052b9f4307d44aee4eda64b309723d8d206bbc"},
@@ -2059,7 +2059,7 @@ name = "pyrsistent"
 version = "0.19.3"
 description = "Persistent/Functional/Immutable data structures"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "pyrsistent-0.19.3-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:20460ac0ea439a3e79caa1dbd560344b64ed75e85d8703943e0b66c2a6150e4a"},
@@ -2174,7 +2174,7 @@ name = "pytz-deprecation-shim"
 version = "0.1.0.post0"
 description = "Shims to make deprecation of pytz easier"
 category = "main"
-optional = true
+optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
 files = [
     {file = "pytz_deprecation_shim-0.1.0.post0-py2.py3-none-any.whl", hash = "sha256:8314c9692a636c8eb3bda879b9f119e350e93223ae83e70e80c31675a0fdc1a6"},
@@ -2375,7 +2375,7 @@ name = "rich"
 version = "13.3.3"
 description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7.0"
 files = [
     {file = "rich-13.3.3-py3-none-any.whl", hash = "sha256:540c7d6d26a1178e8e8b37e9ba44573a3cd1464ff6348b99ee7061b95d1c6333"},
@@ -2441,7 +2441,7 @@ name = "smmap"
 version = "5.0.0"
 description = "A pure Python implementation of a sliding window memory map manager"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "smmap-5.0.0-py3-none-any.whl", hash = "sha256:2aba19d6a040e78d8b09de5c57e96207b09ed71d8e55ce0959eeee6c8e190d94"},
@@ -2477,7 +2477,7 @@ name = "soupsieve"
 version = "2.4"
 description = "A modern CSS selector implementation for Beautiful Soup."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "soupsieve-2.4-py3-none-any.whl", hash = "sha256:49e5368c2cda80ee7e84da9dbe3e110b70a4575f196efb74e51b94549d921955"},
@@ -2596,7 +2596,7 @@ name = "st-annotated-text"
 version = "4.0.0"
 description = "A simple component to display annotated text in Streamlit apps."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.5"
 files = [
     {file = "st-annotated-text-4.0.0.tar.gz", hash = "sha256:8337fcb3271c7f59a877e0fce5d822613116a4036d06890fc68cf840430b40aa"},
@@ -2630,7 +2630,7 @@ name = "streamlit"
 version = "1.21.0"
 description = "The fastest way to build data apps in Python"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7, !=3.9.7"
 files = [
     {file = "streamlit-1.21.0-py2.py3-none-any.whl", hash = "sha256:05862598952a9126e16652caa5bc88eeeea7b2773af252e2daccf1c84ceaaef4"},
@@ -2670,7 +2670,7 @@ name = "streamlit-camera-input-live"
 version = "0.2.0"
 description = "Alternative version of st.camera_input which returns the webcam images live, without any button press needed"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "streamlit-camera-input-live-0.2.0.tar.gz", hash = "sha256:20ceb952b98410084176fcfeb9148e02ea29033a88d4a923161ac7890cedae0f"},
@@ -2686,7 +2686,7 @@ name = "streamlit-card"
 version = "0.0.4"
 description = "A streamlit component, to make UI cards"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8"
 files = [
     {file = "streamlit-card-0.0.4.tar.gz", hash = "sha256:5fe81450310f1e2b6660c83eb6d82f1a5b671d5d42b5e46b3bc654120c481a2c"},
@@ -2701,7 +2701,7 @@ name = "streamlit-embedcode"
 version = "0.1.2"
 description = "Streamlit component for embedded code snippets"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "streamlit-embedcode-0.1.2.tar.gz", hash = "sha256:22a50eb43407bab3d0ed2d4b58e89819da477cd0592ef87edbd373c286712e3a"},
@@ -2716,7 +2716,7 @@ name = "streamlit-extras"
 version = "0.2.7"
 description = "A library to discover, try, install and share Streamlit extras"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8, !=2.7.*, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, !=3.6.*, !=3.7.*"
 files = [
     {file = "streamlit_extras-0.2.7-py3-none-any.whl", hash = "sha256:eea7c7bca24dcb2a6cf26e8990c2105d20ac7773fb253452ce5ed665cc032c98"},
@@ -2743,7 +2743,7 @@ name = "streamlit-faker"
 version = "0.0.2"
 description = "streamlit-faker is a library to very easily fake Streamlit commands"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "streamlit_faker-0.0.2-py3-none-any.whl", hash = "sha256:93d3d910d9be3e60f07c21b28d2ed0487737e071e48ce1faf858e1f68e05b624"},
@@ -2761,7 +2761,7 @@ name = "streamlit-image-coordinates"
 version = "0.1.3"
 description = "Streamlit component that displays an image and returns the coordinates when you click on it"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "streamlit-image-coordinates-0.1.3.tar.gz", hash = "sha256:d0218bf2f575ce8553f24f6bc286f347f85f6dd2f36c96dc04b10dd6b74e27ca"},
@@ -2777,7 +2777,7 @@ name = "streamlit-keyup"
 version = "0.2.0"
 description = "Text input that renders on keyup"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "streamlit-keyup-0.2.0.tar.gz", hash = "sha256:5a38037af547163566eff9fec0ee17a7e3556e4bf99b68d44327c726b8ea85b3"},
@@ -2793,7 +2793,7 @@ name = "streamlit-pills"
 version = "0.3.0"
 description = "💊 A Streamlit component to show clickable pills/badges"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.8,<4.0"
 files = [
     {file = "streamlit-pills-0.3.0.tar.gz", hash = "sha256:47668ad4fd8c137b203ee1aec9d9d44ed8b2ff7ded9f586984f204be2eac772f"},
@@ -2808,7 +2808,7 @@ name = "streamlit-toggle-switch"
 version = "1.0.2"
 description = "Creates a customizable toggle"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "streamlit_toggle_switch-1.0.2-py3-none-any.whl", hash = "sha256:0081212d80d178bda337acf2432425e2016d757f57834b18645d4c5b928d4c0f"},
@@ -2823,7 +2823,7 @@ name = "streamlit-vertical-slider"
 version = "1.0.2"
 description = "Creates a customizable vertical slider"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 files = [
     {file = "streamlit_vertical_slider-1.0.2-py3-none-any.whl", hash = "sha256:ab727cd5c1799c1d9a19c6201ff2a9bcda08222c849c5670ad7a0d994c9fdcdc"},
@@ -2838,7 +2838,7 @@ name = "toml"
 version = "0.10.2"
 description = "Python Library for Tom's Obvious, Minimal Language"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 files = [
     {file = "toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
@@ -2862,7 +2862,7 @@ name = "toolz"
 version = "0.12.0"
 description = "List processing tools and functional utilities"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.5"
 files = [
     {file = "toolz-0.12.0-py3-none-any.whl", hash = "sha256:2059bd4148deb1884bb0eb770a3cde70e7f954cfbbdc2285f1f2de01fd21eb6f"},
@@ -2962,7 +2962,7 @@ name = "tzdata"
 version = "2023.3"
 description = "Provider of IANA time zone data"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2"
 files = [
     {file = "tzdata-2023.3-py2.py3-none-any.whl", hash = "sha256:7e65763eef3120314099b6939b5546db7adce1e7d6f2e179e3df563c70511eda"},
@@ -2974,7 +2974,7 @@ name = "tzlocal"
 version = "4.3"
 description = "tzinfo object for the local timezone"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "tzlocal-4.3-py3-none-any.whl", hash = "sha256:b44c4388f3d34f25862cfbb387578a4d70fec417649da694a132f628a23367e2"},
@@ -3013,7 +3013,7 @@ name = "validators"
 version = "0.20.0"
 description = "Python Data Validation for Humans™."
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.4"
 files = [
     {file = "validators-0.20.0.tar.gz", hash = "sha256:24148ce4e64100a2d5e267233e23e7afeb55316b47d30faae7eb6e7292bc226a"},
@@ -3051,7 +3051,7 @@ name = "watchdog"
 version = "3.0.0"
 description = "Filesystem events monitoring"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "watchdog-3.0.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:336adfc6f5cc4e037d52db31194f7581ff744b67382eb6021c868322e32eef41"},
@@ -3118,7 +3118,7 @@ name = "zipp"
 version = "3.15.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.7"
 files = [
     {file = "zipp-3.15.0-py3-none-any.whl", hash = "sha256:48904fc76a60e542af151aded95726c1a5c34ed43ab4134b597665c86d7ad556"},
@@ -3129,10 +3129,7 @@ files = [
 docs = ["furo", "jaraco.packaging (>=9)", "jaraco.tidelift (>=1.4)", "rst.linker (>=1.9)", "sphinx (>=3.5)", "sphinx-lint"]
 testing = ["big-O", "flake8 (<5)", "jaraco.functools", "jaraco.itertools", "more-itertools", "pytest (>=6)", "pytest-black (>=0.3.7)", "pytest-checkdocs (>=2.4)", "pytest-cov", "pytest-enabler (>=1.3)", "pytest-flake8", "pytest-mypy (>=0.9.1)"]
 
-[extras]
-st-app = ["streamlit", "streamlit_pills", "markdownlit"]
-
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "0f0b2a1699d0ad71dce3d8a4b14faad113f976894c392c8809a5644b5bb8c4da"
+content-hash = "1eecd05c04c1826e140f2f002109bffdafa36ef3393507f7e197f0220e18e972"
