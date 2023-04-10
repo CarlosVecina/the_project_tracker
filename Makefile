@@ -1,5 +1,7 @@
 create_local_db:
 	poetry run python the_project_tracker/db/sqlite_conn.py
+export_requeriments:
+	poetry export -E st_app -f requirements.txt --output requirements.txt
 install:
 	poetry install
 precommit:

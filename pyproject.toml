@@ -23,6 +23,7 @@ streamlit = { version = "~1.21.0", optional = true }
 streamlit_pills = { version = "==0.3.0", optional = true }
 stqdm = { version = "*", optional = true }
 markdownlit = { version = "*", optional = true }
+psycopg2-binary = "^2.9.6"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.2.2"
