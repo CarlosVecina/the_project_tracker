@@ -1,6 +1,7 @@
 #!/bin/sh
 
 projects=(
+ 'https://github.com/python-poetry/poetry'
  'https://github.com/streamlit/streamlit'
  'https://github.com/has2k1/plotnine'
  'https://github.com/pydantic/pydantic'
@@ -15,6 +16,6 @@ projects=(
 for proj in "${projects[@]}";
 do
     echo "Checking the $proj url new releases"
-    the_project_tracker -u $proj releases -n 10
+    the_project_tracker -u $proj releases -n 5
 
 done

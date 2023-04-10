@@ -1,6 +1,7 @@
 #!/bin/sh
 
 projects=(
+ 'https://github.com/python-poetry/poetry'
  'https://github.com/streamlit/streamlit'
  'https://github.com/has2k1/plotnine'
  'https://github.com/pydantic/pydantic'
@@ -15,6 +16,6 @@ projects=(
 for proj in "${projects[@]}";
 do
     echo "Checking the $proj url new merged PRs"
-    the_project_tracker -u $proj prs -n 10 --code_diff
+    the_project_tracker -u $proj prs -n 5 --code_diff
 
 done

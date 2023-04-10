@@ -19,21 +19,24 @@ class Categorias(Enum):
 
 
 def format_output_text(text: str, n: int = 11, method: str = "word") -> str:
-    if method == "word":
-        words = text.split()
-        out = ""
-        word_count = 0
-        for word in words:
-            out += word + " "
-            word_count += 1
-            if word_count == n:
-                out += "\n"
-                word_count = 0
-        return out
-    elif method == "character":
-        import re
+    if text is not None:
+        if method == "word":
+            words = text.split()
+            out = ""
+            word_count = 0
+            for word in words:
+                out += word + " "
+                word_count += 1
+                if word_count == n:
+                    out += "\n"
+                    word_count = 0
+            return out
+        elif method == "character":
+            import re
 
-        return "\n ".join(re.findall(".{n}", text))
+            return "\n ".join(re.findall(".{n}", text))
+    else:
+        return None
 
 
 def get_google_url_img_proyecto(nombre_proyecto: str) -> str:

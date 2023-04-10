@@ -1,27 +1,25 @@
 import datetime
-
+from pandas import DataFrame
 import streamlit as st
 from dotenv import load_dotenv
 from markdownlit import mdlit
 from sqlalchemy.exc import IntegrityError
-from sqlmodel import Field, Session, SQLModel, create_engine, select
+from sqlmodel import Session, select
 from streamlit_pills import pills
+from utils import Categorias, format_output_text, load_css
 
-from utils import (
-    Categorias,
-    format_output_text,
-    get_google_url_img_proyecto,
-    load_css,
-)
-from the_project_tracker.core.data_models import Project, ProjectTable, PRTable
+from the_project_tracker.core.data_models import Project, ProjectTable
 from the_project_tracker.core.github_retriever import GitHubRetrieverProjects
 from the_project_tracker.core.utils import parse_github_url
 from the_project_tracker.db.pg_conn import PGDataConnection
 
+# TODO: As pydantic config. object to set in a YAML file
 NUM_COLS = 1
 N_ELEMENTOS = 5
 TAG_TODOS_LENGUAJES = "-TODOS-"
+TAG_EXPLICACION = "explanation_es"
 AUTO_REVIEW_NEW_PROJECT = False
+
 
 # Base de datos
 load_dotenv()
@@ -50,10 +48,10 @@ def icon(emoji: str):
 
 # Acceso a datos
 if "limit" not in st.session_state:
-    st.session_state["limit"] = 60
+    st.session_state["limit"]: int = 60
 
 if "df_releases" not in st.session_state:
-    st.session_state["df_releases"] = db.run_query(
+    st.session_state["df_releases"]: DataFrame = db.run_query(
         f"""
     select *
     from (
@@ -64,7 +62,7 @@ if "df_releases" not in st.session_state:
     )
 
 if "df_prs" not in st.session_state:
-    st.session_state["df_prs"] = db.run_query(
+    st.session_state["df_prs"]: DataFrame = db.run_query(
         f"""
     select *
     from (
@@ -184,7 +182,7 @@ def get_projects():
 
 
 @st.cache_data(ttl=12 * 3600, show_spinner=False)
-def sort_proyectos(_proyectos: list, by):
+def sort_proyectos(_proyectos: list, by: str):
     if by == "⭐️ Estrellas":
         return sorted(
             _proyectos,
@@ -194,7 +192,7 @@ def sort_proyectos(_proyectos: list, by):
             ),
             reverse=True,
         )
-    elif by == "🐣 Recientes":
+    elif by == "🚀 Recientes":
         return sorted(
             _proyectos,
             key=lambda c: (
@@ -211,7 +209,7 @@ def sort_proyectos(_proyectos: list, by):
 
 @st.cache_data(ttl=12 * 3600, show_spinner=False)
 def filter_proyectos(
-    _proyectos, language=None, busqueda=None, categoria=None, newer_than=None
+    _proyectos, language: str = None, busqueda: str = None, categoria: str = None
 ):
     if language and language != TAG_TODOS_LENGUAJES:
         _proyectos = list(filter(lambda c: language in c.program_language, _proyectos))
@@ -226,14 +224,10 @@ def filter_proyectos(
                 _proyectos,
             )
         )
-    if newer_than:
-        _proyectos = list(
-            filter(lambda c: c.created_at and c.created_at >= newer_than, _proyectos)
-        )
     return _proyectos
 
 
-def shorten(text, length=150):
+def shorten(text, length: int = 150):
     if len(text) > length:
         short_text = text[:length]
 
@@ -253,7 +247,7 @@ def shorten(text, length=150):
 
 
 # @st.cache_data
-def show_proyectos(_proyectos, limit=None):
+def show_proyectos(_proyectos: list, limit: int | None = None):
     if limit is not None:
         _proyectos = _proyectos[:limit]
 
@@ -292,7 +286,7 @@ def show_proyectos(_proyectos, limit=None):
                 exp = True
                 for _, e in df[df.repo_url == c.project_url].iterrows():
                     with st.expander(e["name"], expanded=exp):
-                        out = format_output_text(e["explanation"])
+                        out = format_output_text(e[TAG_EXPLICACION])
                         st.text(out)
                         exp = False
 
@@ -314,22 +308,26 @@ proyectos = get_projects()
 proyectos = sort_proyectos(proyectos, select_orden)
 proyectos = filter_proyectos(proyectos, select_leguaje, busqueda, categoria)
 
-if not busqueda and not categoria and select_orden == "🐣 Recientes":
-    "## 🚀 Releases de la última semana"
+if not busqueda and not categoria and select_orden == "🚀 Recientes":
+    "## 🚀 Releases de la últimas semanas"
     st.write("")
     df_ultimas_releases = st.session_state["df_releases"]
     df_ultimas_releases = (
         df_ultimas_releases[
-            df_ultimas_releases.repo_url.isin([i.project_url for i in proyectos])
+            (df_ultimas_releases.repo_url.isin([i.project_url for i in proyectos]))
+            & (
+                df_ultimas_releases.published_at
+                > str(datetime.datetime.now() - datetime.timedelta(days=14))
+            )
         ]
         .sort_values("published_at", ascending=False)
-        .head(3)
+        .head(5)
     )
     exp_ultimas_real = True
     for _, e in df_ultimas_releases.iterrows():
         _, repo = parse_github_url(e["repo_url"])
         with st.expander(f'{repo} - Release: {e["name"]}', expanded=exp_ultimas_real):
-            out = format_output_text(e["explanation"])
+            out = format_output_text(e[TAG_EXPLICACION])
             st.text(out)
     "## 🌟 Favoritos"
 
