@@ -49,6 +49,13 @@ class ReleasePipeline(BaseModel):
                     entity="release",
                     code_diffs=code_diffs,
                 )
+                explanation_es = explainer.explain_es(
+                    repo=repo,
+                    title=c_rel["tag_name"],
+                    body=c_rel["body"],
+                    entity="release",
+                    code_diffs=code_diffs,
+                )
                 print(
                     f"\nPR {c_rel['tag_name']}. Project: {repo} Explanation:{explanation}\n"
                 )
@@ -61,6 +68,7 @@ class ReleasePipeline(BaseModel):
                     assets=c_rel["assets"],
                     body=c_rel["body"],
                     explanation=explanation,
+                    explanation_es=explanation_es,
                     inserted_at=str(datetime.datetime.now()),
                     updated_at=str(datetime.datetime.now()),
                 )
@@ -99,11 +107,6 @@ class PullRequestPipeline(BaseModel):
             if (fail_if_new) | (len(rows) >= 1):
                 print(f"PR {c_pr['number']} already tracked in this project")
                 continue
-                # import pickle
-                #
-                # with open("pr_model.txt", "rb") as f:
-                #    pr = pickle.load(f)
-                #    explanation = pr.explanation
             else:
                 explainer = OpenAIExplainer()
                 # Retrieve code diffs if needed
@@ -117,22 +120,27 @@ class PullRequestPipeline(BaseModel):
                     body=c_pr["body"],
                     code_diffs=code_diffs,
                 )
+                explanation_es = explainer.explain_es(
+                    repo=repo,
+                    title=c_pr["title"],
+                    body=c_pr["body"],
+                    code_diffs=code_diffs,
+                )
                 print(
                     f"\nPR {c_pr['number']}. Project: {repo} Explanation:{explanation}\n"
                 )
                 pr_obj = PR(
-                    **{
-                        "repo_url": self.repo_url,
-                        "pr_id": c_pr["number"],
-                        "inc_code_diffs": int(self.include_code_diffs),
-                        "merged_at": str(c_pr["merged_at"]),
-                        "inserted_at": str(datetime.datetime.now()),
-                        "updated_at": str(datetime.datetime.now()),
-                        "pr_title": c_pr["title"],
-                        "pr_body": c_pr["body"],
-                        "commits_url": c_pr["commits_url"],
-                        "explanation": explanation,
-                    }
+                    repo_url=self.repo_url,
+                    pr_id=c_pr["number"],
+                    inc_code_diffs=int(self.include_code_diffs),
+                    merged_at=str(c_pr["merged_at"]),
+                    inserted_at=str(datetime.datetime.now()),
+                    updated_at=str(datetime.datetime.now()),
+                    pr_title=c_pr["title"],
+                    pr_body=c_pr["body"],
+                    commits_url=c_pr["commits_url"],
+                    explanation=explanation,
+                    explanation_es=explanation_es
                 )
 
                 db.insert_pr(pr_obj)
