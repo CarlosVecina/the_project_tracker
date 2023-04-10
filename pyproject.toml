@@ -18,10 +18,8 @@ requests = "^2.28.2"
 click = "^8.0"
 python-dotenv = "^1.0.0"
 sqlmodel = "^0.0.8"
-psycopg2 = "^2.9.6"
 streamlit = { version = "~1.21.0", optional = true }
 streamlit_pills = { version = "==0.3.0", optional = true }
-stqdm = { version = "*", optional = true }
 markdownlit = { version = "*", optional = true }
 psycopg2-binary = "^2.9.6"
 
@@ -29,7 +27,7 @@ psycopg2-binary = "^2.9.6"
 pre-commit = "^3.2.2"
 
 [tool.poetry.extras]
-st_app = ["streamlit", "streamlit_pills", "stqdm", "markdownlit"]
+st_app = ["streamlit", "streamlit_pills", "markdownlit"]
 
 [build-system]
 requires = ["poetry-core"]
