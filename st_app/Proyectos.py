@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from streamlit_pills import pills
 
-from st_app.utils import (
+from utils import (
     Categorias,
     format_output_text,
     get_google_url_img_proyecto,

@@ -50,7 +50,7 @@ def get_google_url_img_proyecto(nombre_proyecto: str) -> str:
 
 
 @st.cache_data
-def load_css(file_name=f"{os.getcwd()}/st_app/style.css"):
+def load_css(file_name=f"{os.getcwd()}/style.css"):
     with open(file_name) as f:
         css = f"<style>{f.read()}</style>"
     return css
