@@ -10,6 +10,9 @@ class Categorias(Enum):
     VISUALIZACION = "Visualización y gráficas", "📊"
     BASEDATOS = "Bases de Datos", "📚"
     WEB = "Web frameworks", "🕸"
+    DEV = "Development", "⚙️"
+    TESTING = "Testing", "👀"
+    ML = 'Machine Learning', "🧑‍🔬"
 
     def __new__(cls, value: str, icon: str):
         entry = object.__new__(cls)

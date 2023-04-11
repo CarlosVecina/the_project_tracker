@@ -304,7 +304,7 @@ def show_proyectos(_proyectos: list, limit: int | None = None):
                         st.text(out)
                         exp = False
 
-                st.write("**Últimas PRs mergeadas**")
+                #st.write("**Últimas PRs mergeadas**") #TODO: Ver como añadirlo sin ser tan verbose
 
                 mdlit(" &nbsp;•&nbsp; ".join(formatted_links))
                 st.write("")
