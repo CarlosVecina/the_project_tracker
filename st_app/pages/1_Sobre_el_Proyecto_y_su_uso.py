@@ -21,7 +21,9 @@ st.markdown(
     """
 ## Sobre el proyecto y Concurso Streamlit
 
-Este proyecto consiste en permitir el **seguimiento de tus proyectos Open Source favoritos de manera automatizada**. Mediante un `Retriever` de los proyectos y un `Explainer` (usando LLMs, actualmente OpenAI ChatGPT 3.5) se recopila la información sobre `Releases` y `PRs`, y se resume. Teniendo en cuenta título, cuerpo, diferencias de código, notas de versión y *changelog*.
+Este proyecto facilita el **seguimiento de tus proyectos Open Source favoritos de manera automatizada**. Mantente al día de todos los cambios en un golpe de vista, seas *individual contributor* sin tener que visitar todas las notas de *Release* o estés en un rol de gestión donde quieras seguir al tanto de los cambios que van ocurriendo en los proyectos más usados de tu equipo.
+
+Por debajo, mediante un `Retriever` de los proyectos y un `Explainer` (usando LLMs, actualmente OpenAI ChatGPT 3.5) se recopila la información sobre `Releases` y `PRs`, y se resume. Teniendo en cuenta título, cuerpo, diferencias de código, notas de versión y *changelog*.
 
 **Se desarrolla la aplicacion en Streamlit y en Español, para presentarla al [concurso de Streamlit](https://discuss.streamlit.io/t/anunciando-el-concurso-de-streamlit-en-espanol/40274)**
 

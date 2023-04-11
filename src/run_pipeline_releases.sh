@@ -1,6 +1,16 @@
 #!/bin/sh
 
 projects=(
+ 'https://github.com/pola-rs/polars'
+ 'https://github.com/boto/boto3'
+ 'https://github.com/pytorch/pytorch'
+ 'https://github.com/tensorflow/tensorflow'
+ 'https://github.com/public-apis/public-apis'
+ 'https://github.com/huggingface/diffusers'
+ 'https://github.com/huggingface/transformers'
+ 'https://github.com/scikit-learn/scikit-learn'
+ 'https://github.com/pytest-dev/pytest'
+ 'https://github.com/keras-team/keras'
  'https://github.com/python-poetry/poetry'
  'https://github.com/streamlit/streamlit'
  'https://github.com/has2k1/plotnine'

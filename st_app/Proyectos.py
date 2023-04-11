@@ -156,7 +156,7 @@ def get_nuevo_proyecto():
 
 nuevo_proyecto = st.text_input(
     "¿No encuentras un módulo? URL del nuevo proyecto a seguir",
-    placeholder="p.ej. https://github.com/sqlalchemy/sqlalchemy",
+    placeholder="p.ej. https://github.com/streamlit/streamlit",
     key="nuevo_proyecto",
     on_change=get_nuevo_proyecto(),
 )

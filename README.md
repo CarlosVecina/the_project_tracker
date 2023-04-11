@@ -2,7 +2,9 @@
 
 ## Proyecto y Concurso Streamlit
 
-Este proyecto consiste en permitir el **seguimiento de tus proyectos Open Source favoritos de manera automatizada**. Mediante un `Retriever` de los proyectos y un `Explainer` (usando LLMs, actualmente OpenAI ChatGPT 3.5) se recopila la información sobre `Releases` y `PRs`, y se resume. Teniendo en cuenta título, cuerpo, diferencias de código, notas de versión y *changelog*.
+Este proyecto facilita el **seguimiento de tus proyectos Open Source favoritos de manera automatizada**. Mantente al día de todos los cambios en un golpe de vista, seas *individual contributor* sin tener que visitar todas las notas de *Release* o estés en un rol de gestión donde quieras seguir al tanto de los cambios que van ocurriendo en los proyectos más usados de tu equipo.
+
+Por debajo, mediante un `Retriever` de los proyectos y un `Explainer` (usando LLMs, actualmente OpenAI ChatGPT 3.5) se recopila la información sobre `Releases` y `PRs`, y se resume. Teniendo en cuenta título, cuerpo, diferencias de código, notas de versión y *changelog*.
 
 Esta aplicación se encuentra desplegada en el Cloud de Streamlit:
 
@@ -95,8 +97,5 @@ make run_app_local_db
 ```
 Para popular las tablas, se deberá hacer alguna modificación, de momento, para usar la SQLiteDataConnection. En cuestión de días se parametrizará este comportamiento para poder lanzar el tracker de Releases y PRs con base de datos en local.
 
-<br>
-
-<br>
 
 Agradecimientos a la inspiración en el diseño de la página principal a https://github.com/jrieke/components-hub, proyecto en el cual estaré más que encantado en proponer/sugerir algunas mejoras que bajo mi punto de vista se han implementado en este.
