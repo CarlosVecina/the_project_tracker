@@ -155,7 +155,7 @@ def get_nuevo_proyecto():
 
 
 nuevo_proyecto = st.text_input(
-    "¿No encuentras un módulo? URL del nuevo proyecto a seguir",
+    "¿No encuentras un módulo? URL del nuevo proyecto a seguir. **Sea del lenguaje de programación que sea.**",
     placeholder="p.ej. https://github.com/streamlit/streamlit",
     key="nuevo_proyecto",
     on_change=get_nuevo_proyecto(),
