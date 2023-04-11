@@ -42,7 +42,7 @@ class Project(SQLModel):
     project_name: str = Field(primary_key=True)
     project_url: str = Field(primary_key=True)
     project_source: str
-    stars: str
+    stars: int
     description: str
     created_at: datetime.datetime | None = Field(nullable=True)
     inserted_at: datetime.datetime

@@ -1,4 +1,5 @@
 import datetime
+import os
 from pandas import DataFrame
 import streamlit as st
 from dotenv import load_dotenv
@@ -6,6 +7,7 @@ from markdownlit import mdlit
 from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 from streamlit_pills import pills
+from the_project_tracker.db.sqlite_conn import SQLiteDataConnection
 from utils import Categorias, format_output_text, load_css
 
 from the_project_tracker.core.data_models import Project, ProjectTable
@@ -23,12 +25,34 @@ AUTO_REVIEW_NEW_PROJECT = False
 
 # Base de datos
 load_dotenv()
-db = PGDataConnection()
+if os.getenv('LOCAL_DB') is not None:
+    db = SQLiteDataConnection(db_name=os.getenv('LOCAL_DB'))
+    SCHEMA=""
+    @st.cache_data(ttl=12 * 3600, show_spinner=False)
+    def get_projectos():
+        return db.run_query(
+            f"""
+        select *
+        from {SCHEMA}projects
+        where activated = True and revised = True;
+        """
+        )
+else:
+    db = PGDataConnection()
+    SCHEMA = "project_tracker."
+    @st.cache_data(ttl=12 * 3600, show_spinner=False)
+    def get_projectos():
+        with Session(db.get_engine()) as session:
+            statement = select(ProjectTable)
+            if not AUTO_REVIEW_NEW_PROJECT:
+                statement = statement.filter_by(activated=True, revised=True)
+            projects = session.exec(statement).fetchall()
+        return projects
 
 # Configuración Página
 st.set_page_config(
     page_title="Releases - OSPT",
-    page_icon="👋",
+    page_icon="🔎",
     menu_items={
         "Get Help": "https://www.linkedin.com/in/carlos-vecina/",
     },
@@ -41,7 +65,7 @@ st.markdown(css, unsafe_allow_html=True)
 
 def icon(emoji: str):
     st.write(
-        f'<span style="font-size: 78px; line-height: 1">{emoji}</span>',
+        f'<span style="font-size: 38px; line-height: 1">{emoji}</span>',
         unsafe_allow_html=True,
     )
 
@@ -56,7 +80,7 @@ if "df_releases" not in st.session_state:
     select *
     from (
     select * , ROW_NUMBER() OVER (PARTITION BY repo_url order by published_at DESC) AS r
-    from project_tracker.releases
+    from {SCHEMA}releases
     ) ord
     where ord.r <= {N_ELEMENTOS}"""
     )
@@ -67,7 +91,7 @@ if "df_prs" not in st.session_state:
     select *
     from (
     select * , ROW_NUMBER() OVER (PARTITION BY repo_url order by merged_at DESC) AS r
-    from project_tracker.prs
+    from {SCHEMA}prs
     ) ord
     where ord.r <= {N_ELEMENTOS};
     """
@@ -79,7 +103,7 @@ st.write(
 )
 
 # Título y descripción
-icon("🕵️")
+icon("🔎")
 
 """
 # OSPT - Seguimiento de proyectos Open Source
@@ -169,16 +193,6 @@ st.write("")
 def chunks(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i : i + n]
-
-
-@st.cache_data(ttl=12 * 3600, show_spinner=False)
-def get_projects():
-    with Session(db.get_engine()) as session:
-        statement = select(ProjectTable)
-        if not AUTO_REVIEW_NEW_PROJECT:
-            statement = statement.filter_by(activated=True)
-        projects = session.exec(statement).fetchall()
-    return projects
 
 
 @st.cache_data(ttl=12 * 3600, show_spinner=False)
@@ -290,7 +304,7 @@ def show_proyectos(_proyectos: list, limit: int | None = None):
                         st.text(out)
                         exp = False
 
-                st.write("**Últimas PRs mergeadas**")
+                #st.write("**Últimas PRs mergeadas**") #TODO: Ver como añadirlo sin ser tan verbose
 
                 mdlit(" &nbsp;•&nbsp; ".join(formatted_links))
                 st.write("")
@@ -303,8 +317,9 @@ def show_more():
 
 
 # Listado y filtro de Proyectos
-proyectos = get_projects()
-
+proyectos = get_projectos()
+if proyectos is None:
+    proyectos = []
 proyectos = sort_proyectos(proyectos, select_orden)
 proyectos = filter_proyectos(proyectos, select_leguaje, busqueda, categoria)
 
