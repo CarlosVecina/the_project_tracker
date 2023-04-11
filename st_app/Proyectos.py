@@ -30,7 +30,7 @@ if os.getenv('LOCAL_DB') is not None:
     SCHEMA=""
     @st.cache_data(ttl=12 * 3600, show_spinner=False)
     def get_projectos():
-        db.run_query(
+        return db.run_query(
             f"""
         select *
         from {SCHEMA}projects
@@ -193,9 +193,6 @@ st.write("")
 def chunks(lst, n):
     for i in range(0, len(lst), n):
         yield lst[i : i + n]
-
-
-
 
 
 @st.cache_data(ttl=12 * 3600, show_spinner=False)

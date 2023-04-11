@@ -1,10 +1,21 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(page_title="Sobre OSPT", page_icon="📈")
 
 # st.write("# Welcome to Streamlit! 👋")
 
 # st.sidebar.success("Select a demo above.")
+
+st.markdown("## Videos Explicativos :)")
+st.markdown("### 1. Estructura del proyecto")
+components.html('<iframe src="https://www.loom.com/embed/292b88c0345045a0b9bd905f15e8c362" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen"></iframe>')
+st.markdown("### 2. Ejemplo de ejecución")
+components.html('<iframe src="https://www.loom.com/embed/a813c1c3a67843c3b1ad21097c02293e" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen"></iframe>')
+st.markdown("### 3. Aplicación de Streamlit")
+components.html('<iframe src="https://www.loom.com/embed/78aa1ca95db94065898f1ec593c4667d" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe')
+
+st.write("")
 
 st.markdown(
     """
@@ -16,8 +27,11 @@ Este proyecto consiste en permitir el **seguimiento de tus proyectos Open Source
 
 Para la inclusión de nuevos proyectos, la aplicación ofrece un campo de entrada donde los usuarios pueden sugerir nuevos proyectos a monitorizar. Después de una validación del *input*, se inserta en BBDD y queda pendiente de validar. Una vez validado, se recopilará la información y monitorizará diariamente. Un 'siguiente paso' sería realizar todas las validaciones 'al vuelo' y dejar la inclusión de proyectos 100% autmatizada.
 
-<br>
+""")
 
+st.write("")
+
+st.markdown("""
 ## Estructura de Objetos y Modelo de Datos
 
 En este repositorio podemos encontrar dos módulos:
@@ -39,3 +53,4 @@ Las entidades con las que trabajan, y que son generalemente conocidas, son:
 Son modelos de [SQLModel](https://sqlmodel.tiangolo.com/) (del creador de FastApi), que auna el poder de Pydantic con el de SQLAlchemy.
 """
 )
+
