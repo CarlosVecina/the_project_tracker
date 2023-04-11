@@ -62,7 +62,7 @@ class ReleasePipeline(BaseModel):
 
                 release_obj = Release(
                     repo_url=self.repo_url,
-                    name=c_rel["name"],
+                    name=c_rel["name"] or '',
                     tag_name=c_rel["tag_name"],
                     published_at=c_rel["published_at"],
                     assets=c_rel["assets"],
