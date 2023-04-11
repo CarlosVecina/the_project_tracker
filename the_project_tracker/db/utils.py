@@ -32,8 +32,33 @@ DDL_RELEASES = """
                 PRIMARY KEY (repo_url, tag_name)
             );
         """
-
-
+DDL_PROJECTS = """
+            CREATE TABLE IF NOT EXISTS projects (
+            	project_name varchar NOT NULL,
+            	project_url varchar NOT NULL,
+            	project_source varchar NOT NULL,
+            	stars varchar NULL,
+            	description varchar NULL,
+            	created_at timestamp NULL,
+            	inserted_at timestamp NOT NULL,
+            	updated_at timestamp NOT NULL,
+            	image_url varchar NULL,
+            	search_text varchar NULL,
+            	author varchar NULL,
+            	program_language varchar NULL,
+            	category varchar NULL,
+            	subcategory varchar NULL,
+            	docs_url varchar NULL,
+            	top_contributors varchar NULL,
+            	author_avatar_url varchar NULL,
+            	last_release varchar NULL,
+            	last_release_at varchar NULL,
+            	release_notes varchar NULL,
+            	activated bool NULL DEFAULT false,
+            	revised bool NULL DEFAULT false,
+            	CONSTRAINT projects_pk PRIMARY KEY (project_name, project_url)
+            );
+"""
 def create_upsert_method(
     meta: db.MetaData, extra_update_fields: Optional[Dict[str, str]]
 ):
