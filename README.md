@@ -41,7 +41,12 @@ Las entidades con las que trabajan, y que son generalemente conocidas, son:
 - `Release`
 - `PR`
 
-Son modelos de [SQLModel](https://sqlmodel.tiangolo.com/) (del creador de FastApi), que auna el poder de Pydantic con el de SQLAlchemy.
+<p align="center">
+  <img src="./docs/data_models.drawio.png" width="400" title="Streamlit Concurso en Españil">
+</p>
+
+
+Los hemos creado como modelos de [SQLModel](https://sqlmodel.tiangolo.com/) (del creador de FastApi), que auna el poder de Pydantic con el de SQLAlchemy.
 
 <br>
 
