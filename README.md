@@ -52,6 +52,14 @@ Los hemos creado como modelos de [SQLModel](https://sqlmodel.tiangolo.com/) (del
 
 <br>
 
+**Demo de la Aplicación de Streamlit:**
+
+<p align="center">
+  <img src="./docs/demo.png" width="400" title="Streamlit Concurso en Españil">
+</p>
+
+<br>
+
 ## Como ejecutar
 
 Este proyecto utiliza [Poetry](https://python-poetry.org/docs/) como gestor de dependencias. Asegurate de tenerlo instalado. En caso contrario, puedes ejecutar:
