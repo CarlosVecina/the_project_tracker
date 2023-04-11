@@ -7,7 +7,7 @@ Este proyecto consiste en permitir el **seguimiento de tus proyectos Open Source
 Esta aplicación se encuentra desplegada en el Cloud de Streamlit:
 
 ---- 
-[Acceso al proyecto desplegado en Streamlit Cloud](https://carlosvecina-the-project-tracker-st-appproyectos-about-y-15ez4a.streamlit.app/)
+[Acceso al proyecto desplegado en Streamlit Cloud](https://carlosvecina-the-project-tracker-st-appproyectos-mv7k8w.streamlit.app/)
 
 ---- 
 
