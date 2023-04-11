@@ -1,6 +1,6 @@
-# OSPT - Seguimiento de proyectos Open Source
+# 🔎 OSPT - Seguimiento de proyectos Open Source
 
-## Proyecto y Concurso Streamlit
+## 🏆 Proyecto y Concurso Streamlit
 
 Este proyecto facilita el **seguimiento de tus proyectos Open Source favoritos de manera automatizada**. Mantente al día de todos los cambios en un golpe de vista, seas *individual contributor* sin tener que visitar todas las notas de *Release* o estés en un rol de gestión donde quieras seguir al tanto de los cambios que van ocurriendo en los proyectos más usados de tu equipo.
 
@@ -25,7 +25,12 @@ Para la inclusión de nuevos proyectos, la aplicación ofrece un campo de entrad
 
 <br>
 
-## Estructura de Objetos y Modelo de Datos
+## 🎥 Videos explicativos
+https://carlosvecina-the-project-tracker-st-appproyectos-mv7k8w.streamlit.app/Sobre_el_Proyecto_y_su_uso#videos-explicativos
+
+<br>
+
+## ⛩ Estructura de Objetos y Modelo de Datos
 
 En este repositorio podemos encontrar dos módulos:
 -  `the_project_tracker`, el módulo de obtención de datos y resumen por parte de un LLM
@@ -60,7 +65,7 @@ Los hemos creado como modelos de [SQLModel](https://sqlmodel.tiangolo.com/) (del
 
 <br>
 
-## Como ejecutar
+## 🎬 Como ejecutar
 
 Este proyecto utiliza [Poetry](https://python-poetry.org/docs/) como gestor de dependencias. Asegurate de tenerlo instalado. En caso contrario, puedes ejecutar:
 
