@@ -8,10 +8,10 @@ Por debajo, mediante un `Retriever` de los proyectos y un `Explainer` (usando LL
 
 Esta aplicación se encuentra desplegada en el Cloud de Streamlit:
 
----- 
+----
 [Acceso al proyecto desplegado en Streamlit Cloud](https://carlosvecina-the-project-tracker-st-appproyectos-mv7k8w.streamlit.app/)
 
----- 
+----
 
 con su correspondiente base de datos donde se recopila información varias veces al día.
 
@@ -91,7 +91,7 @@ PG_USERNAME
 PG_PWD
 ```
 
-Realmente, por el momento, es posible que no quieras ejecutar este proyecto en local sino consumirlo desde la app de Streamlit. Publicar este repositorio queda más a propósitos didácticos. Esto es debido a que tanto la aplicación de Streamlit como la base de datos está desplegada y es accesible por los usuarios. 
+Realmente, por el momento, es posible que no quieras ejecutar este proyecto en local sino consumirlo desde la app de Streamlit. Publicar este repositorio queda más a propósitos didácticos. Esto es debido a que tanto la aplicación de Streamlit como la base de datos está desplegada y es accesible por los usuarios.
 
 Para ejecutar el track de Releases y de PRs:
 ```bash

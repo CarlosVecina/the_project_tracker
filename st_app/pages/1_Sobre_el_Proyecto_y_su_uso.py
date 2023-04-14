@@ -55,4 +55,3 @@ Las entidades con las que trabajan, y que son generalemente conocidas, son:
 Son modelos de [SQLModel](https://sqlmodel.tiangolo.com/) (del creador de FastApi), que auna el poder de Pydantic con el de SQLAlchemy.
 """
 )
-
