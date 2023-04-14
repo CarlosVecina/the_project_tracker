@@ -66,3 +66,13 @@ class Project(SQLModel):
 
 class ProjectTable(Project, table=True):
     __tablename__: str = "projects"
+
+
+class Stargazer(SQLModel):
+    project_name: str = Field(primary_key=True)
+    stargazer_user_login: str = Field(primary_key=True)
+    starred_at: datetime.datetime
+
+
+class StargazerTable(Project, table=True):
+    __tablename__: str = "stargazer"
