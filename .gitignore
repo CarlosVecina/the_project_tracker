@@ -1,6 +1,9 @@
 # Env variables file
 .env
 
+# Docker volume with the database
+./docker/volumes
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
