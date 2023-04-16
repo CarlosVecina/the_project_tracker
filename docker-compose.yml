@@ -1,0 +1,63 @@
+services:
+
+  database:
+    image: postgres:${PG_VERSION}
+
+    ports:
+      - ${PG_PORT}:${PG_PORT}
+
+    networks:
+      - internal
+    
+    environment:
+      POSTGRES_USER: ${PG_USERNAME}
+      POSTGRES_PASSWORD: ${PG_PWD}
+      POSTGRES_DB: ${PG_DATABASE}
+
+    volumes:
+      - ./docker/volumes/data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${PG_USERNAME} -d ${PG_DATABASE}'"]
+      interval: 10s
+      timeout: 60s
+      retries: 3
+      start_period: 30s
+
+  app:
+    
+    # Set env variables inside the container
+    env_file:
+      - .env
+
+    container_name: app
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    
+    networks:
+      - internal
+
+    # TODO: do we need env vars at build time?
+    # environment
+
+    depends_on:
+      - database
+
+  # Client to do some visual checks on the DB
+  adminer:
+    image: adminer:${ADMINER_VERSION}
+    container_name: adminer
+    ports:
+      - ${ADMINER_PORT}:${ADMINER_PORT}
+    networks:
+      - internal
+    depends_on:
+      - database
+
+networks:
+  internal:
+    driver: bridge
