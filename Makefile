@@ -1,5 +1,7 @@
 create_local_db:
 	poetry run python the_project_tracker/db/sqlite_conn.py
+create_pg_db:
+	poetry run python the_project_tracker/db/pg_conn.py
 export_requeriments:
 	poetry build  
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
