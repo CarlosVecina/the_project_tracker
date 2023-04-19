@@ -22,11 +22,15 @@ class AbstractDataConnection(BaseModel):
 
     @abstractmethod
     def connect(self):
-        raise NotImplementedError
+        ...
 
     @abstractmethod
     def create_db_if_not_exists(self):
-        raise NotImplementedError
+        ...
+
+    @abstractmethod
+    def get_engine(self):
+        ...
 
     def insert_pr(self, pr: PR, if_exists: str = "append") -> None:
         if not self._conn:

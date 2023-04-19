@@ -6,6 +6,8 @@ import sqlalchemy as db
 from pydantic import BaseSettings, Field, SecretStr
 from sqlalchemy.engine.url import URL
 from sqlalchemy.sql import text as sqla_text
+from sqlmodel import SQLModel
+from the_project_tracker.core.data_models import *  # nopycln: import # load table=True entities
 
 from the_project_tracker.db.conn import AbstractDataConnection
 from the_project_tracker.db.utils import DDL_PRS, DDL_RELEASES, create_upsert_method
@@ -26,11 +28,7 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
     username: str | None = Field(None, description="Database username")
     pwd: SecretStr | None = Field(None, description="Database password")
 
-    write_chunksize: int = Field(
-        1000,
-        description="the number of rows in each batch to be written at a time",
-        example=1000,
-    )
+    write_chunksize: int = 2000
 
     schema: ClassVar[str] = "project_tracker"
 
@@ -127,9 +125,10 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
         return data
 
     def create_db_if_not_exists(self) -> None:
-        with self._conn.connect() as conn:
-            conn.execute(DDL_PRS)
-            conn.execute(DDL_RELEASES)
+        """SQLModel create all entities that are configured as table=True"""
+        if not self._conn:
+            self.connect()
+        SQLModel.metadata.create_all(self._conn)
 
     def query_database(self, query: str) -> list[str]:
         if not self._conn:
@@ -139,3 +138,13 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
             results = conn.execute(query)
             rows = results.fetchall()
             return rows
+
+
+if __name__ == "__main__":
+    # Expects PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME and PG_PWD
+    # from the env
+    # from dotenv import load_dotenv
+    # load_dotenv()
+
+    con = PGDataConnection()
+    con.create_db_if_not_exists()

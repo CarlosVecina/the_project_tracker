@@ -12,6 +12,11 @@ class SQLiteDataConnection(AbstractDataConnection):
 
     db_name: str
 
+    def get_engine(self):
+        # TODO: Create a SQLA abstract class
+        # so this is won't needed
+        pass
+
     def connect(self):
         conn = sqlite3.connect(self.db_name)
         self._conn = conn
