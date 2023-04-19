@@ -68,11 +68,28 @@ class ProjectTable(Project, table=True):
     __tablename__: str = "projects"
 
 
+class ProjectEvolution(SQLModel):
+    date: datetime.date = Field(primary_key=True)
+    project_fullname: str = Field(primary_key=True)
+    project_name: str
+    stargazers_count: int
+    watchers_count: int
+    subscribers_count: int = Field(nullable=True)
+    forks_count: int
+    open_issues: int
+    inserted_at: datetime.datetime
+
+
+class ProjectEvolutionTable(ProjectEvolution, table=True):
+    __tablename__: str = "project_evolution"
+
+
 class Stargazer(SQLModel):
     project_name: str = Field(primary_key=True)
     stargazer_user_login: str = Field(primary_key=True)
     starred_at: datetime.datetime
+    inserted_at: datetime.datetime
 
 
-class StargazerTable(Project, table=True):
+class StargazerTable(Stargazer, table=True):
     __tablename__: str = "stargazer"
