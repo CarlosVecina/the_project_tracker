@@ -28,3 +28,4 @@ repos:
     hooks:
       - id: pycln
         language_version: python311
+        args: [--expand-stars]
