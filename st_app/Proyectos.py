@@ -11,7 +11,7 @@ from the_project_tracker.db.sqlite_conn import SQLiteDataConnection
 from utils import Categorias, format_output_text, load_css
 
 from the_project_tracker.core.data_models import Project, ProjectTable
-from the_project_tracker.core.github_retriever import GitHubRetrieverProjects
+from the_project_tracker.core.retriever import GitHubRetrieverProjects
 from the_project_tracker.core.utils import parse_github_url
 from the_project_tracker.db.pg_conn import PGDataConnection
 
@@ -113,7 +113,7 @@ description = st.empty()
 description.write(
     f"""
 ¡Mantente al día de tus librerías Open Source favoritas!
-La información ofrecida aquí está automatizada mediante acceso diario a los proyectos en GitHub 
+La información ofrecida aquí está automatizada mediante acceso diario a los proyectos en GitHub
 y explicación de ChatGPT4.
 """
 )

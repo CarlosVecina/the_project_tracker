@@ -1,15 +1,21 @@
 import click
 
 from the_project_tracker.core.pipeline import PullRequestPipeline, ReleasePipeline
+from the_project_tracker.core.stargazers import (
+    DiscoveryTopProjectEvolutionPipeline,
+    ProjectEvolutionPipeline,
+)
 
 
 @click.group()
-@click.option("-u", "--url", prompt="Github project url", help="Github project url")
+@click.option(
+    "-u", "--url", help="Github project url", default=None, show_default=True
+)  # prompt="Github project url"
 @click.pass_context
 def pipeline_cli(ctx, url: str):
     ctx.ensure_object(dict)
     ctx.obj["url"] = url
-    print(ctx.obj["url"])
+    print(f"URL param set to: {ctx.obj['url']}")
 
 
 @click.command("releases")
@@ -27,7 +33,7 @@ def releases(ctx, max_releases_num: int):
     pipeline.run()
 
 
-@click.command()
+@click.command("prs")
 @click.option(
     "-n",
     "--max_pr_num",
@@ -44,8 +50,22 @@ def prs(ctx, max_pr_num: int, code_diff: bool, fail: bool):
     pipeline.run(fail_if_new=fail)
 
 
+@click.command("discover_proyects_evolution")
+def discover_proyect_evolution():
+    pipeline = DiscoveryTopProjectEvolutionPipeline()
+    pipeline.run()
+
+
+@click.command("project_evolution")
+def project_evolution():
+    pipeline = ProjectEvolutionPipeline()
+    pipeline.run()
+
+
 pipeline_cli.add_command(prs, "prs")
 pipeline_cli.add_command(releases, "releases")
+pipeline_cli.add_command(project_evolution, "project_evolution")
+pipeline_cli.add_command(discover_proyect_evolution, "discover_proyect_evolution")
 
 if __name__ == "__main__":
     pipeline_cli(obj={})

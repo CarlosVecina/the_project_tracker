@@ -5,7 +5,7 @@ from pydantic import BaseModel, Field
 
 from the_project_tracker.core.data_models import PR, Release
 from the_project_tracker.core.explainer import OpenAIExplainer
-from the_project_tracker.core.github_retriever import (GitHubRetrieverPRs,
+from the_project_tracker.core.retriever import (GitHubRetrieverPRs,
                                                        GitHubRetrieverReleases)
 from the_project_tracker.core.utils import parse_github_url
 from the_project_tracker.db.pg_conn import PGDataConnection

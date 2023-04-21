@@ -1,7 +1,9 @@
 create_local_db:
 	poetry run python the_project_tracker/db/sqlite_conn.py
+create_local_pg:
+	poetry run python the_project_tracker/db/pg_conn.py
 export_requeriments:
-	poetry build  
+	poetry build
 	poetry export -f requirements.txt --output requirements.txt --without-hashes
 	ex -sc '1i|./dist/the_project_tracker-0.1.0-py3-none-any.whl' -cx requirements.txt
 install:
@@ -19,3 +21,6 @@ track_prs:
 	poetry run sh src/run_pipeline_prs.sh
 track_releases:
 	poetry run sh src/run_pipeline_releases.sh
+track_project_evolution:
+	poetry run the_project_tracker project_evolution
+	poetry run the_project_tracker discover_proyect_evolution
