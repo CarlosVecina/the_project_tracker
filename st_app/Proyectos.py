@@ -13,7 +13,7 @@ from utils import Categorias, format_output_text, load_css
 from the_project_tracker.core.data_models import Project, ProjectTable
 from the_project_tracker.core.github_retriever import GitHubRetrieverProjects
 from the_project_tracker.core.utils import parse_github_url
-from the_project_tracker.db.pg_conn import PGDataConnection
+from the_project_tracker.db.pg_conn import PGDataConnection, SettingsSSH
 
 # TODO: As pydantic config. object to set in a YAML file
 NUM_COLS = 1
@@ -38,7 +38,7 @@ if os.getenv('LOCAL_DB') is not None:
         """
         )
 else:
-    db = PGDataConnection()
+    db = PGDataConnection(ssh_config=SettingsSSH())
     SCHEMA = "project_tracker."
     @st.cache_data(ttl=12 * 3600, show_spinner=False)
     def get_projectos():
