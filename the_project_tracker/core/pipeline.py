@@ -8,7 +8,7 @@ from the_project_tracker.core.explainer import OpenAIExplainer
 from the_project_tracker.core.github_retriever import (GitHubRetrieverPRs,
                                                        GitHubRetrieverReleases)
 from the_project_tracker.core.utils import parse_github_url
-from the_project_tracker.db.pg_conn import PGDataConnection
+from the_project_tracker.db.pg_conn import PGDataConnection, SettingsSSH
 from the_project_tracker.db.sqlite_conn import SQLiteDataConnection
 
 load_dotenv()
@@ -22,7 +22,7 @@ class ReleasePipeline(BaseModel):
     repo_url: str
     max_releases_num: int = Field(5)
     connection: PGDataConnection | SQLiteDataConnection = (
-        PGDataConnection()
+        PGDataConnection(ssh_config=SettingsSSH())
     )  # SQLiteDataConnection(db_name="tracker_db.sqlite")
 
     def run(self):

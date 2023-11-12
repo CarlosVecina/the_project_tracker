@@ -6,9 +6,22 @@ import sqlalchemy as db
 from pydantic import BaseSettings, Field, SecretStr
 from sqlalchemy.engine.url import URL
 from sqlalchemy.sql import text as sqla_text
+from sqlmodel import SQLModel
+from the_project_tracker.core.data_models import *  # nopycln: import # load table=True entities
 
 from the_project_tracker.db.conn import AbstractDataConnection
-from the_project_tracker.db.utils import DDL_PRS, DDL_RELEASES, create_upsert_method
+from the_project_tracker.db.utils import create_upsert_method
+from sshtunnel import SSHTunnelForwarder
+
+
+class SettingsSSH(BaseSettings):
+    class Config:
+        title = "SSH connection config"
+        env_prefix = "SSH_"
+        case_sensitive = False
+
+    user: str | None = Field(None, description="Database username")
+    pwd: SecretStr | None = Field(None, description="Database username")
 
 
 class PGDataConnection(BaseSettings, AbstractDataConnection):
@@ -18,6 +31,10 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
         case_sensitive = False
         underscore_attrs_are_private = True
 
+    ssh_config: SettingsSSH | None = None
+    _local_host: str | None = None
+    _local_port: int | None = None
+
     host: str = Field(..., description="Database Host")
     port: int | None = Field(None, description="Database connection port number")
 
@@ -26,36 +43,41 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
     username: str | None = Field(None, description="Database username")
     pwd: SecretStr | None = Field(None, description="Database password")
 
-    write_chunksize: int = Field(
-        1000,
-        description="the number of rows in each batch to be written at a time",
-        example=1000,
-    )
+    write_chunksize: int = 2000
 
     schema: ClassVar[str] = "project_tracker"
 
     @property
     def connection_str(self) -> URL:
-        s_pwd = None if self.pwd is None else self.pwd.get_secret_value()
+        if self.ssh_config:
+            server = SSHTunnelForwarder(
+                (self.host, 22),
+                ssh_username=self.ssh_config.user,
+                ssh_password=self.ssh_config.pwd.get_secret_value(),
+                remote_bind_address=("localhost", self.port),
+            )
+            server.start() #start ssh server
+            self._local_port = server.local_bind_port
+            self._local_host = "localhost"
+
         connection_url = URL.create(
             drivername="postgresql+psycopg2",
-            host=self.host,
-            port=self.port,
+            host=self._local_host if self._local_host is not None else self.host,
+            port=self._local_port if self._local_port is not None else self.port,
             database=self.database,
             username=self.username,
-            password=s_pwd,
+            password=None if self.pwd is None else self.pwd.get_secret_value(),
         )
+
         return connection_url
 
-    def connect(self) -> None:
+    def create_connectable_or_pass(self) -> None:
         "Connects to the Database"
         if not self._conn:
             self._conn = sa.create_engine(
                 self.connection_str,
                 connect_args={"options": "-csearch_path={}".format(self.schema)},
             )
-        else:
-            None
 
     def disconnect(self) -> None:
         "Disconnects from the Database"
@@ -74,8 +96,7 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
         return self._conn
 
     def query_database(self, query: str, search_text: str) -> list[str]:
-        if not self._conn:
-            self.connect()
+        self.create_connectable_or_pass()
         cur = self._conn.cursor()
         cur.execute(query, (*search_text,))
         rows = cur.fetchall()
@@ -115,7 +136,7 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
         return f"Inserted {int(n_rows)}."
 
     def run_query(self, query: str, **kwargs) -> pd.DataFrame:
-        self.connect()
+        self.create_connectable_or_pass()
 
         data = pd.read_sql(
             sqla_text(query, bind=self._conn),
@@ -127,15 +148,24 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
         return data
 
     def create_db_if_not_exists(self) -> None:
-        with self._conn.connect() as conn:
-            conn.execute(DDL_PRS)
-            conn.execute(DDL_RELEASES)
+        """SQLModel create all entities that are configured as table=True"""
+        self.create_connectable_or_pass()
+        SQLModel.metadata.create_all(self._conn)
 
     def query_database(self, query: str) -> list[str]:
-        if not self._conn:
-            self.connect()
+        self.create_connectable_or_pass()
 
         with self._conn.connect() as conn:
             results = conn.execute(query)
             rows = results.fetchall()
             return rows
+
+
+if __name__ == "__main__":
+    # Expects at least PG_HOST, PG_PORT, PG_DATABASE, PG_USERNAME and PG_PWD
+    # from the env
+    from dotenv import load_dotenv
+    load_dotenv()
+
+    con = PGDataConnection(ssh_config=SettingsSSH())
+    con.create_db_if_not_exists()
