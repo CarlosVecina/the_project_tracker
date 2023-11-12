@@ -10,10 +10,16 @@ class AbstractExplainer(BaseSettings):
     def explain(self, **kwargs) -> str:
         raise NotImplementedError("An explainer should explain ;)")
 
+    def explain_es(self, **kwargs) -> str:
+        raise NotImplementedError("An explainer should explain in ES ;)")
+
 
 class DummyExplainer(AbstractExplainer):
     def explain(self, **kwargs):
         return "Dummy"
+
+    def explain_es(self, **kwargs) -> str:
+        return "Dummy ES"
 
 
 class OpenAIExplainer(AbstractExplainer):
@@ -51,7 +57,7 @@ class OpenAIExplainer(AbstractExplainer):
         content = f"""Explain the following {entity} in the '{repo}'  project without access the current repository.\n
         Avoid talking about reviewer or interestad users. {entity} title: {title}"""
         if body:
-            content += f"Description: {body[0:400]}."
+            content += f"Description: {body[0:600]}."
         if code_diffs:
             content += f"Code diffs: {code_diffs[0:1500]}"
         data = {
@@ -62,12 +68,12 @@ class OpenAIExplainer(AbstractExplainer):
                 }
             ],
             "model": "gpt-3.5-turbo",
-            "max_tokens": 300,
-            "temperature": 0.7,
+            "max_tokens": 400,
+            "temperature": 0.5,
         }
         response = requests.post(url, headers=headers, data=json.dumps(data))
         result = response.json()
-        if 'error' in result:
+        if "error" in result:
             raise Exception("OpenAI request error:", result["error"])
         return result["choices"][0]["message"]["content"].strip()
 
@@ -106,6 +112,6 @@ class OpenAIExplainer(AbstractExplainer):
         }
         response = requests.post(url, headers=headers, data=json.dumps(data))
         result = response.json()
-        if 'error' in result:
+        if "error" in result:
             raise Exception("OpenAI request error:", result["error"])
         return result["choices"][0]["message"]["content"].strip()

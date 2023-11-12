@@ -49,16 +49,16 @@ class ReleasePipeline(BaseModel):
                     entity="release",
                     code_diffs=code_diffs,
                 )
-                explanation_es = explainer.explain_es(
-                    repo=repo,
-                    title=c_rel["tag_name"],
-                    body=c_rel["body"],
-                    entity="release",
-                    code_diffs=code_diffs,
-                )
-                print(
-                    f"\nPR {c_rel['tag_name']}. Project: {repo} Explanation:{explanation}\n"
-                )
+                #explanation_es = explainer.explain_es(
+                #    repo=repo,
+                #    title=c_rel["tag_name"],
+                #    body=c_rel["body"],
+                #    entity="release",
+                #    code_diffs=code_diffs,
+                #)
+                #print(
+                #    f"\nPR {c_rel['tag_name']}. Project: {repo} Explanation:{explanation}\n"
+                #)
 
                 release_obj = Release(
                     repo_url=self.repo_url,
@@ -68,7 +68,7 @@ class ReleasePipeline(BaseModel):
                     assets=c_rel["assets"],
                     body=c_rel["body"],
                     explanation=explanation,
-                    explanation_es=explanation_es,
+                    explanation_es="",#explanation_es,
                     inserted_at=str(datetime.datetime.now()),
                     updated_at=str(datetime.datetime.now()),
                 )

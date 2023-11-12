@@ -70,26 +70,28 @@ class GitHubRetrieverReleases(GitHubRetriever):
 
     def get_last_release(self, max_releases_num: int) -> str:
         headers = {"Authorization": f"token {self.token}"}
-        url = f"https://api.github.com/repos/{self.owner}/{self.repo}/releases"
-        response = requests.get(url, headers=headers)
+        n_pages = max_releases_num // 100 + 1
+        for page in range(1, n_pages+1):
+            url = f"https://api.github.com/repos/{self.owner}/{self.repo}/releases?per_page={max_releases_num}&page={page}"
+            response = requests.get(url, headers=headers)
 
-        if response.status_code == 200:
-            releases = response.json()
-            output = list()
-            for release in releases:
-                if len(output) < max_releases_num:
-                    output.append(
-                        {
-                            "name": release["name"],
-                            "tag_name": release["tag_name"],
-                            "published_at": release["published_at"],
-                            "assets": str(release["assets"]),
-                            "body": str(release["body"]),
-                        }
-                    )
-            return output
-        else:
-            print(f"Failed to retrieve release data: {response.status_code}")
+            if response.status_code == 200:
+                releases = response.json()
+                output = list()
+                for release in releases:
+                    if len(output) < max_releases_num:
+                        output.append(
+                            {
+                                "name": release["name"],
+                                "tag_name": release["tag_name"],
+                                "published_at": release["published_at"],
+                                "assets": str(release["assets"]),
+                                "body": str(release["body"]),
+                            }
+                        )
+                return output
+            else:
+                print(f"Failed to retrieve release data: {response.status_code}")
 
 
 class GitHubRetrieverPRs(GitHubRetriever):
