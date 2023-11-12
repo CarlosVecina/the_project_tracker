@@ -67,6 +67,8 @@ class OpenAIExplainer(AbstractExplainer):
         }
         response = requests.post(url, headers=headers, data=json.dumps(data))
         result = response.json()
+        if 'error' in result:
+            raise Exception("OpenAI request error:", result["error"])
         return result["choices"][0]["message"]["content"].strip()
 
     def _get_gpt35_turbo_explanation_esp(
@@ -104,4 +106,6 @@ class OpenAIExplainer(AbstractExplainer):
         }
         response = requests.post(url, headers=headers, data=json.dumps(data))
         result = response.json()
+        if 'error' in result:
+            raise Exception("OpenAI request error:", result["error"])
         return result["choices"][0]["message"]["content"].strip()

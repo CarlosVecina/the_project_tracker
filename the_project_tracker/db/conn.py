@@ -21,32 +21,29 @@ class AbstractDataConnection(BaseModel):
     _conn: sqlalchemy.engine.Connectable | sqlite3.Connection | None = None
 
     @abstractmethod
-    def connect(self):
-        raise NotImplementedError
+    def create_connectable_or_pass(self):
+        ...
 
     @abstractmethod
     def create_db_if_not_exists(self):
         raise NotImplementedError
 
     def insert_pr(self, pr: PR, if_exists: str = "append") -> None:
-        if not self._conn:
-            self.connect()
+        self.create_connectable_or_pass()
 
         df = pd.DataFrame([pr.dict()])
         df.to_sql(self.prs_table, self._conn, if_exists=if_exists, index=False)
         print("PR inserted")
 
     def insert_release(self, release: Release, if_exists: str = "append") -> None:
-        if not self._conn:
-            self.connect()
+        self.create_connectable_or_pass()
 
         df = pd.DataFrame([release.dict()])
         df.to_sql(self.releases_table, self._conn, if_exists=if_exists, index=False)
         print("Release inserted")
 
     def instert_project(self, project: Project, if_exists: str = "append") -> None:
-        if not self._conn:
-            self.connect()
+        self.create_connectable_or_pass()
 
         df = pd.DataFrame([project.dict()])
         df.to_sql(self.projects_table, self._conn, if_exists=if_exists, index=False)
