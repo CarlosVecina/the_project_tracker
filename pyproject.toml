@@ -27,6 +27,7 @@ markdownlit = "*"
 psycopg2-binary = "^2.9.6"
 sshtunnel = "^0.4.0"
 urllib3 = "^2.0.7"
+openai = "^1.2.3"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.2.2"
