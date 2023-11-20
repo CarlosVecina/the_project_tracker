@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlmodel import Session, select
 from streamlit_pills import pills
 from the_project_tracker.db.sqlite_conn import SQLiteDataConnection
-from utils import Categorias, format_output_text, load_css
+from utils import Categories, format_output_text, load_css
 
 from the_project_tracker.core.data_models import Project, ProjectTable
 from the_project_tracker.core.github_retriever import GitHubRetrieverProjects
@@ -17,9 +17,9 @@ from the_project_tracker.db.pg_conn import PGDataConnection, SettingsSSH
 
 # TODO: As pydantic config. object to set in a YAML file
 NUM_COLS = 1
-N_ELEMENTOS = 5
-TAG_TODOS_LENGUAJES = "-TODOS-"
-TAG_EXPLICACION = "explanation_es"
+N_ELEMENTS = 5
+TAG_ALL_LANG = "-ALL-"
+TAG_EXPLANATION = "explanation"
 AUTO_REVIEW_NEW_PROJECT = False
 
 
@@ -82,7 +82,7 @@ if "df_releases" not in st.session_state:
     select * , ROW_NUMBER() OVER (PARTITION BY repo_url order by published_at DESC) AS r
     from {SCHEMA}releases
     ) ord
-    where ord.r <= {N_ELEMENTOS}"""
+    where ord.r <= {N_ELEMENTS}"""
     )
 
 if "df_prs" not in st.session_state:
@@ -93,7 +93,7 @@ if "df_prs" not in st.session_state:
     select * , ROW_NUMBER() OVER (PARTITION BY repo_url order by merged_at DESC) AS r
     from {SCHEMA}prs
     ) ord
-    where ord.r <= {N_ELEMENTOS};
+    where ord.r <= {N_ELEMENTS};
     """
     )
 
@@ -102,40 +102,40 @@ st.write(
     unsafe_allow_html=True,
 )
 
-# Título y descripción
+# Title
 icon("🔎")
 
 """
-# OSPT - Seguimiento de proyectos Open Source
+# OSPT - Open Source Project Tracking
 """
 
 description = st.empty()
 description.write(
     f"""
-¡Mantente al día de tus librerías Open Source favoritas!
-La información ofrecida aquí está automatizada mediante acceso diario a los proyectos en GitHub 
-y explicación de ChatGPT4.
+## **Stay up to date with your favorite libraries!** 
+
+The information provided here is automated through daily access to projects on GitHub and explanation by ChatGPT4.
 """
 )
-if "nuevo_proyecto" not in st.session_state:
-    st.session_state["nuevo_proyecto"] = ""
+if "new_project" not in st.session_state:
+    st.session_state["new_project"] = ""
 
 
-# Nuevo Proyecto
-def get_nuevo_proyecto():
-    msg_nuevo_proy = "<span style='color:green'>¡Felicidades! Hemos recogido tu petición y el proyecto se añadirá enseguida.</span>"
-    if st.session_state["nuevo_proyecto"] != "":
+# New Project
+def get_new_project():
+    msg_nuevo_proy = "<span style='color:green'>Congratulations! We have received your request and the project will be added shortly.</span>"
+    if st.session_state["new_project"] != "":
         try:
-            owner, repo = parse_github_url(st.session_state["nuevo_proyecto"])
+            owner, repo = parse_github_url(st.session_state["new_project"])
         except:
             st.write(
-                "URL de GitHub inválida. Formato: https://github.com/streamlit/streamlit"
+                "Invalid URL de GitHub. Example format: https://github.com/streamlit/streamlit"
             )
         gh = GitHubRetrieverProjects(owner=owner, repo=repo)
         # TODO: automatizar 100%: get_google_url_img_proyecto(repo)
         proy = Project(
             project_name=repo,
-            project_url=st.session_state["nuevo_proyecto"],
+            project_url=st.session_state["new_project"],
             project_source="github",
             stars=gh.get_project_stars(),
             program_language=gh.get_project_language(),
@@ -150,15 +150,15 @@ def get_nuevo_proyecto():
             db.instert_project(proy)
         except Exception as e:
             if type(e) == IntegrityError:
-                msg_nuevo_proy = f"<span style='color:green'>¡El proyecto {repo.upper()} ya había sido pedido recientemente y está ya incluido o pendiente de incluirse! :)</span>"
+                msg_nuevo_proy = f"<span style='color:green'>This project: {repo.upper()} has already been recently included or waiting to be included! :)</span>"
         st.markdown(msg_nuevo_proy, unsafe_allow_html=True)
 
 
-nuevo_proyecto = st.text_input(
-    "¿No encuentras un módulo? URL del nuevo proyecto a seguir. **Sea del lenguaje de programación que sea.**",
+new_project = st.text_input(
+    "Can't find a module? **URL of the new project to follow.** Whatever the programming language may be.",
     placeholder="p.ej. https://github.com/streamlit/streamlit",
-    key="nuevo_proyecto",
-    on_change=get_nuevo_proyecto(),
+    key="new_project",
+    on_change=get_new_project(),
 )
 
 
@@ -170,21 +170,21 @@ st.write(
 
 # Panel de búsqueda
 col1, col2, col3 = st.columns([2, 1, 1])
-busqueda = col1.text_input(
-    "Búsqueda", placeholder="p.ej. tidyverse, validacion, graficas"
+search = col1.text_input(
+    "Search Terms", placeholder="e.g tidyverse, validation, charts"
 )
 
 select_leguaje = col2.selectbox(
-    "Lenguaje", ["Python", "R", TAG_TODOS_LENGUAJES], index=2
+    "Language", ["Python", "R", TAG_ALL_LANG], index=2
 )
-select_orden = col3.selectbox("Ordenar", ["⭐️ Estrellas", "🚀 Recientes"])
+select_orden = col3.selectbox("Sort by", ["⭐️ Stars", "🚀 Recency"])
 
-categoria = pills(
-    "Categoria",
-    [i.name for i in Categorias],
-    [i.icon for i in Categorias],
+category = pills(
+    "Category",
+    [i.name for i in Categories],
+    [i.icon for i in Categories],
     index=None,
-    format_func=lambda x: Categorias.__getitem__(x).value,
+    format_func=lambda x: Categories.__getitem__(x).value,
     label_visibility="collapsed",
 )
 st.write("")
@@ -196,19 +196,19 @@ def chunks(lst, n):
 
 
 @st.cache_data(ttl=12 * 3600, show_spinner=False)
-def sort_proyectos(_proyectos: list, by: str):
-    if by == "⭐️ Estrellas":
+def sort_projects(_projects: list, by: str):
+    if by == "⭐️ Stars":
         return sorted(
-            _proyectos,
+            _projects,
             key=lambda c: (
                 int(c.stars) if c.stars is not None else 0,
                 c.image_url is not None,  # items with image first
             ),
             reverse=True,
         )
-    elif by == "🚀 Recientes":
+    elif by == "🚀 Recency":
         return sorted(
-            _proyectos,
+            _projects,
             key=lambda c: (
                 c.created_at
                 if c.created_at is not None
@@ -218,27 +218,27 @@ def sort_proyectos(_proyectos: list, by: str):
             reverse=True,
         )
     else:
-        raise ValueError("`by` debe ser 'Estrellas' o 'Recientes'")
+        raise ValueError("`by` must by 'Stars' or 'Recency'")
 
 
 @st.cache_data(ttl=12 * 3600, show_spinner=False)
-def filter_proyectos(
-    _proyectos, language: str = None, busqueda: str = None, categoria: str = None
+def filter_projects(
+    _projects, language: str = None, search: str = None, category: str = None
 ):
-    if language and language != TAG_TODOS_LENGUAJES:
-        _proyectos = list(filter(lambda c: language in c.program_language, _proyectos))
-    if busqueda:
-        _proyectos = list(
-            filter(lambda c: busqueda.lower() in c.search_text, _proyectos)
+    if language and language != TAG_ALL_LANG:
+        _projects = list(filter(lambda c: language in c.program_language, _projects))
+    if search:
+        _projects = list(
+            filter(lambda c: search.lower() in c.search_text, _projects)
         )
-    if categoria:
-        _proyectos = list(
+    if category:
+        _projects = list(
             filter(
-                lambda c: (categoria in c.category) | (categoria in c.subcategory),
-                _proyectos,
+                lambda c: (category in c.category) | (category in c.subcategory),
+                _projects,
             )
         )
-    return _proyectos
+    return _projects
 
 
 def shorten(text, length: int = 150):
@@ -261,11 +261,11 @@ def shorten(text, length: int = 150):
 
 
 # @st.cache_data
-def show_proyectos(_proyectos: list, limit: int | None = None):
+def show_projects(_projects: list, limit: int | None = None):
     if limit is not None:
-        _proyectos = _proyectos[:limit]
+        _projects = _projects[:limit]
 
-    for i, proyectos_chunk in enumerate(chunks(_proyectos, NUM_COLS)):
+    for i, proyectos_chunk in enumerate(chunks(_projects, NUM_COLS)):
         cols = st.columns(NUM_COLS, gap="medium")
         for c, col in zip(proyectos_chunk, cols):
             with col:
@@ -294,13 +294,13 @@ def show_proyectos(_proyectos: list, limit: int | None = None):
                 if c.project_url:
                     formatted_links.append(f"@(GitHub)({c.project_url})")
 
-                st.write("**Últimas Releases**")
+                st.write("**Last Releases**")
                 df = st.session_state["df_releases"]
 
                 exp = True
                 for _, e in df[df.repo_url == c.project_url].iterrows():
                     with st.expander(e["name"], expanded=exp):
-                        out = format_output_text(e[TAG_EXPLICACION])
+                        out = format_output_text(e[TAG_EXPLANATION])
                         st.text(out)
                         exp = False
 
@@ -320,11 +320,11 @@ def show_more():
 proyectos = get_projectos()
 if proyectos is None:
     proyectos = []
-proyectos = sort_proyectos(proyectos, select_orden)
-proyectos = filter_proyectos(proyectos, select_leguaje, busqueda, categoria)
+proyectos = sort_projects(proyectos, select_orden)
+proyectos = filter_projects(proyectos, select_leguaje, search, category)
 
-if not busqueda and not categoria and select_orden == "🚀 Recientes":
-    "## 🚀 Releases de la últimas semanas"
+if not search and not category and select_orden == "🚀 Recency":
+    "## 🚀 Releases from last weeks!"
     st.write("")
     df_ultimas_releases = st.session_state["df_releases"]
     df_ultimas_releases = (
@@ -342,14 +342,14 @@ if not busqueda and not categoria and select_orden == "🚀 Recientes":
     for _, e in df_ultimas_releases.iterrows():
         _, repo = parse_github_url(e["repo_url"])
         with st.expander(f'{repo} - Release: {e["name"]}', expanded=exp_ultimas_real):
-            out = format_output_text(e[TAG_EXPLICACION])
+            out = format_output_text(e[TAG_EXPLANATION])
             st.text(out)
-    "## 🌟 Favoritos"
+    "## 🌟 Favs"
 
 st.write("")
 st.write("")
 
-show_proyectos(proyectos, st.session_state["limit"])
+show_projects(proyectos, st.session_state["limit"])
 
 if len(proyectos) > st.session_state["limit"]:
-    st.button("Show more proyectos", on_click=show_more, type="primary")
+    st.button("Show more projects", on_click=show_more, type="primary")
