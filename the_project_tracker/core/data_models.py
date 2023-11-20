@@ -66,3 +66,21 @@ class Project(SQLModel):
 
 class ProjectTable(Project, table=True):
     __tablename__: str = "projects"
+
+
+class Documentation(SQLModel):
+    project_name: str = Field(primary_key=True)
+    project_version: str = Field(primary_key=True)
+    doc_obj: str | None = Field(primary_key=True)
+    doc_method: str | None = Field(primary_key=True)
+    doc_content: str 
+    doc_content_interpretation: str | None
+    inserted_at: datetime.datetime
+    updated_at: datetime.datetime
+
+    def __hash__(self) -> int:
+        return Project.__hash__(self)
+
+
+class DocumentationTable(Project, table=True):
+    __tablename__: str = "documentations"

@@ -4,11 +4,11 @@ import requests
 import streamlit as st
 
 
-class Categorias(Enum):
-    MANIPULACION = "Manipulacion Datos", "🧰"
-    VALIDACION = "Validacion Datos", "✅"
-    VISUALIZACION = "Visualización y gráficas", "📊"
-    BASEDATOS = "Bases de Datos", "📚"
+class Categories(Enum):
+    MANIPULATION = "Data Manipulation", "🧰"
+    VALIDATION = "Data Validation", "✅"
+    VISUALIZATION = "Visualization", "📊"
+    DATABASE = "Database", "📚"
     WEB = "Web frameworks", "🕸"
     DEV = "Development", "⚙️"
     TESTING = "Testing", "👀"

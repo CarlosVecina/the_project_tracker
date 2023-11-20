@@ -132,3 +132,8 @@ class GitHubRetrieverPRs(GitHubRetriever):
                 diffs.append(f'File: {file["filename"]}\nPatch:\n{file["patch"]}')
 
         return "\n".join(diffs)
+
+class SphinxDocumentationRetriever(AbstractRetriever):
+    url: str
+    def retrieve(self, max_pr_num: int) -> list | None:
+        return self.get_last_n_merged_prs_info(max_pr_num)

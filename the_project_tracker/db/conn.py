@@ -6,7 +6,7 @@ import pandas as pd
 import sqlalchemy
 from pydantic import BaseModel
 
-from the_project_tracker.core.data_models import PR, Project, Release
+from the_project_tracker.core.data_models import PR, Documentation, Project, Release
 
 
 class AbstractDataConnection(BaseModel):
@@ -17,6 +17,7 @@ class AbstractDataConnection(BaseModel):
     prs_table: ClassVar[str] = "prs"
     releases_table: ClassVar[str] = "releases"
     projects_table: ClassVar[str] = "projects"
+    documentations_table: ClassVar[str] = "documentations"
 
     _conn: sqlalchemy.engine.Connectable | sqlite3.Connection | None = None
 
@@ -48,3 +49,10 @@ class AbstractDataConnection(BaseModel):
         df = pd.DataFrame([project.dict()])
         df.to_sql(self.projects_table, self._conn, if_exists=if_exists, index=False)
         print("Project inserted")
+
+    def insert_documentation(self, documentation: Documentation, if_exists: str = "append") -> None:
+        self.create_connectable_or_pass()
+
+        df = pd.DataFrame([documentation.dict()])
+        df.to_sql(self.documentations_table, self._conn, if_exists=if_exists, index=False)
+        print("Documentation inserted")
