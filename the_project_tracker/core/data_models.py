@@ -28,8 +28,8 @@ class Release(SQLModel):
     published_at: str
     assets: str
     body: str
-    explanation: str
-    explanation_es: str
+    explanation: str | None
+    explanation_es: str | None
     inserted_at: str
     updated_at: str
 

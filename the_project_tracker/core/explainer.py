@@ -24,6 +24,8 @@ class OpenAIExplainer(AbstractExplainer):
         underscore_attrs_are_private = True
 
     token: str
+    max_len_input: int = 1500
+    max_len_output: int = 1500
 
     def explain(self, **kwargs) -> str:
         return self._get_gpt35_turbo_explanation(**kwargs)
@@ -48,12 +50,13 @@ class OpenAIExplainer(AbstractExplainer):
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json",
         }
-        content = f"""Explain the following {entity} in the '{repo}'  project without access the current repository.\n
-        Avoid talking about reviewer or interestad users. {entity} title: {title}"""
+        content = f"""Explain the following {entity} in the '{repo}' project without access the current repository.\n
+        Avoid talking about reviewer or interestad users. {entity} title: {title}. Focus on the information relevant for a code migration perspective, 
+        like function and methods deprecations and renames, performance improvements, enhancement. Do it in a precise way as it was the prompt to reconstruct the change version."""
         if body:
-            content += f"Description: {body[0:400]}."
+            content += f"Description: {body[:self.max_len_input]}."
         if code_diffs:
-            content += f"Code diffs: {code_diffs[0:1500]}"
+            content += f"Code diffs: {code_diffs[:(max(0, self.max_len_input - len(content)))]}"
         data = {
             "messages": [
                 {
@@ -62,12 +65,12 @@ class OpenAIExplainer(AbstractExplainer):
                 }
             ],
             "model": "gpt-3.5-turbo",
-            "max_tokens": 300,
+            "max_tokens": self.max_len_output,
             "temperature": 0.7,
         }
         response = requests.post(url, headers=headers, data=json.dumps(data))
         result = response.json()
-        if 'error' in result:
+        if "error" in result:
             raise Exception("OpenAI request error:", result["error"])
         return result["choices"][0]["message"]["content"].strip()
 
@@ -87,12 +90,13 @@ class OpenAIExplainer(AbstractExplainer):
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json",
         }
-        content = f"""Resume la siguiente {entity} en el proyecto '{repo}' sin necesidad de acceder al repositorio de github.\n
+        content = f"""Resume y traduce al español la siguiente {entity} en el proyecto '{repo}' sin necesidad de acceder al repositorio de github. Centrate en la información relevante desde una perspectiva de migración de versiones de código.
+        Como por ejemplo deprecación de funciones, renombrado, mejoras de rendimiento y nuevas funciones. Hazlo tal y como tú lo necesitarías para hacer una recostrucción y migración entre versiones de código.\n
         Evita hablar sobre los revisores. {entity} titulo:  {title}"""
         if body:
-            content += f"La descripcion es: {body[0:400]}."
+            content += f"La descripcion en Ingles es: {body[:self.max_len_input]}."
         if code_diffs:
-            content += f"Las diferencias de codigo: {code_diffs[0:1500]}"
+            content += f"Las diferencias de codigo: {code_diffs[:(max(0, self.max_len_input - len(content)))]}"
         data = {
             "messages": [
                 {
@@ -101,11 +105,11 @@ class OpenAIExplainer(AbstractExplainer):
                 }
             ],
             "model": "gpt-3.5-turbo",
-            "max_tokens": 300,
+            "max_tokens": self.max_len_output,
             "temperature": 0.7,
         }
         response = requests.post(url, headers=headers, data=json.dumps(data))
         result = response.json()
-        if 'error' in result:
+        if "error" in result:
             raise Exception("OpenAI request error:", result["error"])
         return result["choices"][0]["message"]["content"].strip()

@@ -1,5 +1,6 @@
 import requests
 from pydantic import BaseSettings
+import re
 
 
 class AbstractRetriever(BaseSettings):
@@ -68,16 +69,20 @@ class GitHubRetrieverReleases(GitHubRetriever):
     owner: str
     repo: str
 
+    # Hard assumption about importance citation precedence
+    recursive_release_exploration: int = 0
+
     def get_last_release(self, max_releases_num: int) -> str:
         headers = {"Authorization": f"token {self.token}"}
-        url = f"https://api.github.com/repos/{self.owner}/{self.repo}/releases"
-        response = requests.get(url, headers=headers)
+        n_pages = max_releases_num // 100 + 1
+        output = list()
+        for page in range(1, n_pages):
+            url = f"https://api.github.com/repos/{self.owner}/{self.repo}/releases?per_page={min(100, max_releases_num)}&page={page}"
+            response = requests.get(url, headers=headers)
 
-        if response.status_code == 200:
-            releases = response.json()
-            output = list()
-            for release in releases:
-                if len(output) < max_releases_num:
+            if response.status_code == 200:
+                releases = response.json()
+                for release in releases:
                     output.append(
                         {
                             "name": release["name"],
@@ -87,9 +92,18 @@ class GitHubRetrieverReleases(GitHubRetriever):
                             "body": str(release["body"]),
                         }
                     )
-            return output
-        else:
-            print(f"Failed to retrieve release data: {response.status_code}")
+            else:
+                print(f"Failed to retrieve release data: {response.status_code}")
+        return output
+    
+    def expand_body_cited_prs(self, body: str) -> str:
+        pr_number_regex = r"#(\d+)"
+        pr_numbers = re.findall(pr_number_regex, body)
+        for pr_n in pr_numbers[:self.recursive_release_exploration]:
+            url = f'https://api.github.com/repos/{self.owner}/{self.repo}/pulls/{pr_n}'
+            response = requests.get(url, headers={"Authorization": f"token {self.token}", "X-GitHub-Api-Version": "2022-11-28", "Accept": "application/vnd.github+json"}).json()
+            body = body.replace(f'#{pr_n}', f'Title and body: {response.get("title", "")} {response.get("description", "")}')
+        return body
 
 
 class GitHubRetrieverPRs(GitHubRetriever):
@@ -135,5 +149,6 @@ class GitHubRetrieverPRs(GitHubRetriever):
 
 class SphinxDocumentationRetriever(AbstractRetriever):
     url: str
+    
     def retrieve(self, max_pr_num: int) -> list | None:
         return self.get_last_n_merged_prs_info(max_pr_num)

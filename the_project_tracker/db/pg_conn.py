@@ -95,13 +95,6 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
             )
         return self._conn
 
-    def query_database(self, query: str, search_text: str) -> list[str]:
-        self.create_connectable_or_pass()
-        cur = self._conn.cursor()
-        cur.execute(query, (*search_text,))
-        rows = cur.fetchall()
-        return rows
-
     def write_table(
         self,
         tablename: str,
@@ -151,14 +144,6 @@ class PGDataConnection(BaseSettings, AbstractDataConnection):
         """SQLModel create all entities that are configured as table=True"""
         self.create_connectable_or_pass()
         SQLModel.metadata.create_all(self._conn)
-
-    def query_database(self, query: str) -> list[str]:
-        self.create_connectable_or_pass()
-
-        with self._conn.connect() as conn:
-            results = conn.execute(query)
-            rows = results.fetchall()
-            return rows
 
 
 if __name__ == "__main__":

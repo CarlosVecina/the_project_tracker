@@ -31,7 +31,7 @@ class ReleasePipeline(BaseModel):
         list_last_releases = gh.get_last_release(max_releases_num=self.max_releases_num)
         for c_rel in list_last_releases:
             db = self.connection
-            rows = db.query_database(
+            rows = db.run_query(
                 f"SELECT repo_url, tag_name FROM {db.releases_table} WHERE repo_url = '{self.repo_url}' and tag_name =  '{c_rel['tag_name']}'",
             )
             if len(rows) >= 1:
@@ -100,7 +100,7 @@ class PullRequestPipeline(BaseModel):
         for c_pr in list_last_prs:
             # Check if the PR is tracked
             db = self.connection
-            rows = db.query_database(
+            rows = db.run_query(
                 f"SELECT repo_url, pr_id FROM {db.prs_table} WHERE repo_url = '{self.repo_url}' and pr_id = {c_pr['number']} and inc_code_diffs = { int(self.include_code_diffs)}",
             )
 
