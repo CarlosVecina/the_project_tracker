@@ -1,10 +1,14 @@
 # 🔎 OSPT - Open Source Project Tracker
 
+The objective of this project is to keep track of your favourite Open Source projects:
+- Version tracking and appealing release notes to keep you updated
+- Project popularity (WIP)
+- AI codebase version migrations -> Imagine your project and notebooks getting version upgraded automatically 😏 (WIP)
 
----- 
-[Access to the deployed app in Streamlit Cloud](https://carlosvecina-the-project-tracker-st-appproyectos-mv7k8w.streamlit.app/)
+----
+[Access to the deployed app in Streamlit Cloud](https://the-project-tracker.streamlit.app/)
 
----- 
+----
 
 <br>
 
@@ -13,22 +17,22 @@
 
 In this repository, we can find two modules:
 
-- the_project_tracker, the module for data acquisition and summarization by an LLM.
-- st_app, the module that contains the Streamlit application.
+- `the_project_tracker`, the module for data acquisition and summarization by an LLM.
+- `st_app`, the module that contains the Streamlit application.
 
 The fundamental elements of this project are:
 
-- Pipeline: It is the main program, responsible for executing from start to finish the data collection from Github, parsing them, summarizing through AI, and inserting them into a database.
-- Retriever: It is responsible for gathering information about Projects, Releases, and PRs. Currently, GitHubRetriever has been implemented, which is in charge of collecting this data through the GitHub API.
-- Explainer: It is responsible for calling the NLP model capable of summarizing the content. Currently, OpenAIExplainer has been implemented, which is responsible for making calls to the OpenAI API so that ChatGPT3.5 can summarize and translate entities. It uses titles, bodies, and code differences of the Releases and PRs.
-- DataConnection: It is in charge of retrieving data and inserting it into the database. Mainly PGDataConnection is used, although SQLiteDataConnection has also been implemented for educational/debug purposes.
-- Streamlit App: It is a separate module responsible for offering an App where the data is made available in a user-friendly manner.
+- `Pipeline`: It is the main program, responsible for executing from start to finish the data collection from Github, parsing them, summarizing through AI, and inserting them into a database.
+- `Retriever`: It is responsible for gathering information about Projects, Releases, and PRs. Currently, GitHubRetriever has been implemented, which is in charge of collecting this data through the GitHub API.
+- `Explainer`: It is responsible for calling the NLP model capable of summarizing the content. Currently, OpenAIExplainer has been implemented, which is responsible for making calls to the OpenAI API so that ChatGPT3.5 can summarize and translate entities. It uses titles, bodies, and code differences of the Releases and PRs.
+- `DataConnection`: It is in charge of retrieving data and inserting it into the database. Mainly PGDataConnection is used, although SQLiteDataConnection has also been implemented for educational/debug purposes.
+- `Streamlit App`: It is a separate module responsible for offering an App where the data is made available in a user-friendly manner.
 
 The entities they work with, and which are generally known, are:
 
-- Project
-- Release
-- PR
+- `Project`
+- `Release`
+- `PR`
 
 <p align="center">
   <img src="./docs/data_models.drawio.png" width="400" title="Streamlit Concurso en Españil">
@@ -39,7 +43,7 @@ The entities they work with, and which are generally known, are:
 **Demo**
 
 <p align="center">
-  <img src="./docs/demo.png" width="400" title="Streamlit Concurso en Españil">
+  <a href="https://the-project-tracker.streamlit.app/"><img src="./docs/demo.png" width="400" title="Streamlit Concurso en Españil"></a>
 </p>
 
 <br>
