@@ -28,12 +28,13 @@ psycopg2-binary = "^2.9.6"
 sshtunnel = "^0.4.0"
 urllib3 = "^2.0.7"
 polars = "^0.19.13"
+beautifulsoup4 = "^4.12.2"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.2.2"
 
-#[tool.poetry.extras]
-#st_app = ["streamlit", "streamlit_pills", "markdownlit"]
+[tool.poetry.extras]
+st_app = ["streamlit", "streamlit_pills", "markdownlit"]
 
 [build-system]
 requires = ["poetry-core"]
